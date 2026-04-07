@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Traffic Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: var(--bg-deep); overflow-x: hidden; }
+    #galaxy-canvas { z-index: 0; opacity: 0.3; } /* dim background for dashboard readability */
+    
+    .dashboard {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    
+    .stat-card h3 { font-size: 1rem; color: var(--text-secondary); margin-bottom: 8px;}
+    .stat-card .value { font-size: 3rem; font-family: var(--font-display); background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+    
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(10px);
+      overflow-x: auto;
+    }
+    
+    h3.table-title { font-family: var(--font-display); margin-bottom: 16px; font-size: 1.5rem; }
+    
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    th { color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
+    tr:last-child td { border-bottom: none; }
+    td.highlight { color: var(--accent-blue); font-weight: 500;}
+  </style>
+</head>
+<body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <canvas id="galaxy-canvas" data-html2canvas-ignore="true"></canvas>
+
+  <div class="dashboard">
+    <div class="dash-header">
+      <h2>Portfolio <span class="gradient-text">Analytics</span></h2>
+      <div style="display: flex; gap: 10px;" data-html2canvas-ignore="true">
+        <button id="download-btn" class="btn btn-primary" style="padding: 10px 20px; border-radius: 8px; cursor:pointer;">Download PDF</button>
+        <a href="/api/admin/logout" class="btn btn-ghost" style="padding: 10px 20px; border-radius: 8px;">Logout</a>
+      </div>
+    </div>
+
+    <div class="dash-stats">
+      <div class="stat-card">
+        <h3>Total Unique Visits</h3>
+        <div class="value" id="total-visits">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Link Clicks</h3>
+        <div class="value" id="total-clicks">0</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <h3 class="table-title">Recent Clicks (Socials & Projects)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Link Target</th>
+            <th>Type</th>
+            <th>Time of Click (Local)</th>
+          </tr>
+        </thead>
+        <tbody id="clicks-body">
+          <tr><td colspan="4">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <h3 class="table-title">Recent Site Visitors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>IP Address (Anonymized)</th>
+            <th>Time of Visit (Local)</th>
+          </tr>
+        </thead>
+        <tbody id="visits-body">
+          <tr><td colspan="3">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <h3 class="table-title">Visitor Doubts & Questions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Question / Doubt</th>
+            <th>Status</th>
+            <th>Time (Local)</th>
+          </tr>
+        </thead>
+        <tbody id="questions-body">
+          <tr><td colspan="4">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="galaxy.js"></script>
+  <script>
+    // Fetch data and populate
+    fetch('/api/admin/data')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('total-visits').textContent = data.stats.total_visits;
+        document.getElementById('total-clicks').textContent = data.stats.total_clicks;
+        
+        let clicksHtml = '';
+        if (data.clicks.length === 0) clicksHtml = '<tr><td colspan="4">No clicks yet.</td></tr>';
+        data.clicks.forEach(c => {
+          clicksHtml += `<tr>
+            <td>#${c.id}</td>
+            <td class="highlight">${c.target_url || 'Unknown'}</td>
+            <td>${c.link_id}</td>
+            <td>${new Date(c.time).toLocaleString()}</td>
+          </tr>`;
+        });
+        document.getElementById('clicks-body').innerHTML = clicksHtml;
+
+        let visitsHtml = '';
+        if (data.visits.length === 0) visitsHtml = '<tr><td colspan="3">No visits yet.</td></tr>';
+        data.visits.forEach(v => {
+          let ip = v.ip || "Unknown";
+          // Basic anonymization for safety/display
+          if(ip !== "::1" && ip !== "127.0.0.1") {
+             let parts = ip.split('.');
+             if(parts.length===4) ip = `${parts[0]}.${parts[1]}.*.*`;
+          }
+          visitsHtml += `<tr>
+            <td>#${v.id}</td>
+            <td>${ip}</td>
+            <td>${new Date(v.time).toLocaleString()}</td>
+          </tr>`;
+        });
+        document.getElementById('visits-body').innerHTML = visitsHtml;
+
+        let questionsHtml = '';
+        if (!data.questions || data.questions.length === 0) questionsHtml = '<tr><td colspan="4">No doubts asked yet.</td></tr>';
+        else {
+          data.questions.forEach(q => {
+            let status = q.answered ? '<span style="color:var(--accent-blue)">Answered</span>' : '<span style="color:#ef4444">Needs Review</span>';
+            questionsHtml += `<tr>
+              <td>#${q.id}</td>
+              <td>${q.question}</td>
+              <td>${status}</td>
+              <td>${new Date(q.time).toLocaleString()}</td>
+            </tr>`;
+          });
+        }
+        document.getElementById('questions-body').innerHTML = questionsHtml;
+      });
+
+    // Professional PDF Download Handler
+    document.getElementById('download-btn').addEventListener('click', () => {
+      // 1. Create a temporary report container
+      const report = document.createElement('div');
+      report.style.padding = '40px';
+      report.style.background = '#ffffff';
+      report.style.color = '#000000';
+      report.style.fontFamily = 'Arial, sans-serif';
+      
+      // 2. Build professional header
+      let reportHtml = `
+        <div style="border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 30px;">
+          <h1 style="margin: 0; font-size: 24px; color: #1e3a8a;">PORTFOLIO ANALYTICS REPORT</h1>
+          <p style="margin: 5px 0 0 0; color: #4b5563; font-weight: bold;">Rahul Vishwakarma</p>
+          <p style="margin: 5px 0 0 0; color: #6b7280; font-size:12px;">Generated Date: ${new Date().toLocaleString()}</p>
+        </div>
+      `;
+
+      // 3. Add High-Level Stats
+      const visits = document.getElementById('total-visits').textContent;
+      const clicks = document.getElementById('total-clicks').textContent;
+      reportHtml += `
+        <div style="display: flex; gap: 40px; margin-bottom: 40px; background: #f8fafc; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+          <div><strong style="font-size:1.2rem; display:block;">Total Unique Visits</strong> <span style="font-size:24px; color:#2563eb; font-weight:bold;">${visits}</span></div>
+          <div><strong style="font-size:1.2rem; display:block;">Total Link Clicks</strong> <span style="font-size:24px; color:#2563eb; font-weight:bold;">${clicks}</span></div>
+        </div>
+      `;
+
+      // 4. Add Tables
+      const tableStyle = 'width:100%; border-collapse: collapse; margin-bottom: 40px; font-size: 13px;';
+      const thStyle = 'border: 1px solid #d1d5db; padding: 10px; background: #f3f4f6; text-align: left; color:#111827; font-weight:600; text-transform:uppercase;';
+      const tdStyle = 'border: 1px solid #e5e7eb; padding: 10px; color:#374151;';
+      
+      reportHtml += `<h2 style="font-size: 1.1rem; margin-bottom: 10px; border-bottom:1px solid #eee; padding-bottom:5px;">Recent Click Activity</h2><table style="${tableStyle}">`;
+      reportHtml += `<tr><th style="${thStyle}">ID</th><th style="${thStyle}">Link Target</th><th style="${thStyle}">Type</th><th style="${thStyle}">Time</th></tr>`;
+      
+      document.querySelectorAll('#clicks-body tr').forEach(row => {
+          reportHtml += '<tr>';
+          row.querySelectorAll('td').forEach(cell => {
+              reportHtml += `<td style="${tdStyle}">${cell.textContent}</td>`;
+          });
+          reportHtml += '</tr>';
+      });
+      reportHtml += `</table>`;
+
+      reportHtml += `<h2 style="font-size: 1.1rem; margin-bottom: 10px; border-bottom:1px solid #eee; padding-bottom:5px;">Recent Visit Activity</h2><table style="${tableStyle}">`;
+      reportHtml += `<tr><th style="${thStyle}">ID</th><th style="${thStyle}">IP Address</th><th style="${thStyle}">Time</th></tr>`;
+      
+      document.querySelectorAll('#visits-body tr').forEach(row => {
+          reportHtml += '<tr>';
+          row.querySelectorAll('td').forEach(cell => {
+              reportHtml += `<td style="${tdStyle}">${cell.textContent}</td>`;
+          });
+          reportHtml += '</tr>';
+      });
+      reportHtml += `</table>`;
+
+      reportHtml += `<h2 style="font-size: 1.1rem; margin-bottom: 10px; border-bottom:1px solid #eee; padding-bottom:5px;">Visitor Doubts / Questions</h2><table style="${tableStyle}">`;
+      reportHtml += `<tr><th style="${thStyle}">ID</th><th style="${thStyle}">Question</th><th style="${thStyle}">Status</th><th style="${thStyle}">Time</th></tr>`;
+      
+      document.querySelectorAll('#questions-body tr').forEach(row => {
+          reportHtml += '<tr>';
+          row.querySelectorAll('td').forEach(cell => {
+              reportHtml += `<td style="${tdStyle}">${cell.textContent}</td>`;
+          });
+          reportHtml += '</tr>';
+      });
+      reportHtml += `</table>`;
+
+      // Wrap everything correctly avoiding off-screen CSS hacks that break html2canvas
+      const finalReport = `<div style="padding: 40px; background: #ffffff; color: #000000; font-family: Arial, sans-serif; min-height: 100vh;">${reportHtml}</div>`;
+
+      const opt = {
+        margin:       15,
+        filename:     'Analytics_Report_Rahul_Vishwakarma.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      
+      html2pdf().set(opt).from(finalReport).save();
+    });
+  </script>
+</body>
+</html>

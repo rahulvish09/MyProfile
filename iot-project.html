@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IoT Smart Home | Rahul Vishwakarma</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* IoT Cyber/Dark Theme */
+    :root {
+      --bg-deep: #0f111a; 
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      
+      --bg-card: rgba(15, 23, 42, 0.7); 
+      --bg-card-hover: rgba(15, 23, 42, 0.95);
+      
+      --border: rgba(14, 165, 233, 0.2);
+      --border-hover: rgba(14, 165, 233, 0.6);
+      
+      --accent-blue: #38bdf8;
+      --accent-purple: #818cf8;
+      --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.05), transparent 25%);
+    }
+
+    /* IoT Floating Components Background */
+    .iot-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      /* Subtle circuit board grid */
+      background-size: 60px 60px;
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+    }
+
+    /* Each floating component */
+    .ecomp {
+      position: absolute;
+      opacity: 0.12;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    /* Resistor — horizontal striped bar */
+    .comp-resistor {
+      width: 70px; height: 24px;
+      border: 2px solid #38bdf8;
+      border-radius: 4px;
+      background: repeating-linear-gradient(90deg, #38bdf8 0px, #38bdf8 6px, transparent 6px, transparent 12px);
+    }
+    .comp-resistor::before, .comp-resistor::after {
+      content: '';
+      position: absolute;
+      top: 50%; width: 20px; height: 2px;
+      background: #38bdf8;
+    }
+    .comp-resistor::before { left: -22px; }
+    .comp-resistor::after { right: -22px; }
+
+    /* Capacitor — two parallel plates */
+    .comp-capacitor {
+      width: 30px; height: 40px;
+      border-left: 3px solid #818cf8;
+      border-right: 3px solid #818cf8;
+      background: transparent;
+    }
+    .comp-capacitor::before, .comp-capacitor::after {
+      content: '';
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      width: 2px; height: 14px;
+      background: #818cf8;
+    }
+    .comp-capacitor::before { top: -14px; }
+    .comp-capacitor::after { bottom: -14px; }
+
+    /* IC Chip — rectangle with pins */
+    .comp-chip {
+      width: 50px; height: 60px;
+      border: 2px solid #38bdf8;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.05);
+    }
+    .comp-chip::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: 50%; transform: translateX(-50%);
+      width: 14px; height: 7px;
+      border-radius: 0 0 8px 8px;
+      border: 2px solid #38bdf8;
+      border-top: none;
+    }
+
+    /* Wi-Fi signal arcs */
+    .comp-wifi {
+      width: 40px; height: 40px;
+      border: 3px solid transparent;
+      border-top: 3px solid #818cf8;
+      border-radius: 50%;
+    }
+    .comp-wifi::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 6px;
+      width: 24px; height: 24px;
+      border: 3px solid transparent;
+      border-top: 3px solid #818cf8;
+      border-radius: 50%;
+    }
+    .comp-wifi::after {
+      content: '';
+      position: absolute;
+      top: 13px; left: 13px;
+      width: 10px; height: 10px;
+      border: 3px solid transparent;
+      border-top: 3px solid #818cf8;
+      border-radius: 50%;
+    }
+
+    /* LED — small circle with glow */
+    .comp-led {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 12px #34d399;
+      animation-name: ledBlink !important;
+    }
+
+    /* Circuit Trace — diagonal line */
+    .comp-trace {
+      width: 120px; height: 2px;
+      background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+      transform: rotate(-25deg);
+    }
+
+    /* Float animations — various paths */
+    @keyframes floatA {
+      0%   { transform: translate(0, 0) rotate(0deg); }
+      25%  { transform: translate(30px, -60px) rotate(5deg); }
+      50%  { transform: translate(-20px, -120px) rotate(-3deg); }
+      75%  { transform: translate(40px, -60px) rotate(4deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    @keyframes floatB {
+      0%   { transform: translate(0, 0) rotate(0deg); }
+      33%  { transform: translate(-40px, -80px) rotate(-6deg); }
+      66%  { transform: translate(25px, -40px) rotate(3deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    @keyframes floatC {
+      0%   { transform: translate(0, 0) rotate(12deg); }
+      50%  { transform: translate(-30px, -100px) rotate(-8deg); }
+      100% { transform: translate(0, 0) rotate(12deg); }
+    }
+    @keyframes ledBlink {
+      0%, 100% { opacity: 0.08; box-shadow: 0 0 6px #34d399; }
+      50%      { opacity: 0.25; box-shadow: 0 0 18px #34d399; }
+    }
+
+    /* Content Layout Specific to Case Study */
+    .project-header {
+      padding: 140px 24px 60px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 40px;
+      left: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent-blue);
+      font-weight: 500;
+      transition: gap 0.3s;
+    }
+    .back-btn:hover { gap: 15px; color: var(--accent-purple); }
+
+    .project-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .meta-tag {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+    }
+
+    .content-section {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+
+    .content-section h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+    }
+
+    .content-section p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 30px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .feature-card h3 {
+      color: var(--accent-purple);
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+
+    .feature-card ul {
+      list-style-type: none;
+    }
+    
+    .feature-card ul li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .feature-card ul li::before {
+      content: '📡';
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.85rem;
+    }
+
+    /* Working principles styled list */
+    .styled-list {
+      counter-reset: custom-counter;
+      list-style: none;
+    }
+
+    .styled-list li {
+      position: relative;
+      padding-left: 50px;
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    .styled-list li::before {
+      counter-increment: custom-counter;
+      content: counter(custom-counter);
+      position: absolute;
+      left: 0;
+      top: -2px;
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+    
+    .styled-list li strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .pro-tip {
+      background: rgba(129, 140, 248, 0.1);
+      border-left: 4px solid var(--accent-purple);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Electronic Components Background -->
+  <div class="iot-bg">
+    <!-- Resistors -->
+    <div class="ecomp comp-resistor" style="top:12%;left:8%;animation:floatA 28s infinite;"></div>
+    <div class="ecomp comp-resistor" style="top:55%;right:6%;animation:floatB 34s infinite;"></div>
+    <div class="ecomp comp-resistor" style="top:80%;left:45%;animation:floatC 40s infinite;"></div>
+    
+    <!-- Capacitors -->
+    <div class="ecomp comp-capacitor" style="top:25%;right:15%;animation:floatB 30s infinite;"></div>
+    <div class="ecomp comp-capacitor" style="top:70%;left:18%;animation:floatA 36s infinite;"></div>
+    
+    <!-- IC Chips -->
+    <div class="ecomp comp-chip" style="top:40%;left:5%;animation:floatC 32s infinite;"></div>
+    <div class="ecomp comp-chip" style="top:15%;right:25%;animation:floatA 38s infinite;"></div>
+    <div class="ecomp comp-chip" style="bottom:15%;right:10%;animation:floatB 42s infinite;"></div>
+    
+    <!-- Wi-Fi Arcs -->
+    <div class="ecomp comp-wifi" style="top:8%;left:55%;animation:floatB 26s infinite;"></div>
+    <div class="ecomp comp-wifi" style="top:60%;right:22%;animation:floatC 35s infinite;"></div>
+    
+    <!-- LEDs -->
+    <div class="ecomp comp-led" style="top:18%;left:35%;animation:ledBlink 4s infinite;"></div>
+    <div class="ecomp comp-led" style="top:50%;right:35%;animation:ledBlink 3s infinite 1s;"></div>
+    <div class="ecomp comp-led" style="top:75%;left:60%;animation:ledBlink 5s infinite 0.5s;"></div>
+    <div class="ecomp comp-led" style="top:35%;left:80%;animation:ledBlink 3.5s infinite 2s;"></div>
+    
+    <!-- Circuit Traces -->
+    <div class="ecomp comp-trace" style="top:30%;left:20%;animation:floatA 45s infinite;"></div>
+    <div class="ecomp comp-trace" style="top:65%;right:15%;animation:floatB 50s infinite;"></div>
+    <div class="ecomp comp-trace" style="top:85%;left:40%;animation:floatC 55s infinite;"></div>
+  </div>
+
+  <div class="overlay" style="background: transparent; min-height: 100vh;">
+    
+    <header class="project-header reveal">
+      <a href="index.html" class="back-btn">← Back to Portfolio</a>
+      <h1 class="project-hero-title">IoT-Based Smart Home<br><span class="gradient-text">Lighting Control System</span></h1>
+      <div class="project-meta">
+        <span class="meta-tag">IoT (Internet of Things)</span>
+        <span class="meta-tag">NodeMCU ESP8266</span>
+        <span class="meta-tag">Wi-Fi Control</span>
+        <span class="meta-tag">Relay Modules</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Introduction -->
+      <section class="content-section reveal">
+        <h2>📖 Introduction</h2>
+        <p>The IoT Smart Home Automation System is a project designed to control household electrical appliances remotely using the internet. This system uses a Wi-Fi-enabled microcontroller to provide seamless communication between the user and home devices.</p>
+        <p>The project demonstrates the practical implementation of the <strong>Internet of Things</strong>, allowing real-time control and monitoring of electrical loads.</p>
+      </section>
+
+      <!-- Objectives & Features -->
+      <section class="content-section reveal">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>🎯 Objectives</h3>
+            <ul>
+              <li>Develop a smart home automation system</li>
+              <li>Enable remote appliance control via internet</li>
+              <li>Reduce manual effort & improve convenience</li>
+              <li>Create an energy-efficient scalable system</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>📊 Features</h3>
+            <ul>
+              <li>Remote ON/OFF control of devices</li>
+              <li>Control of multiple appliances (4 channels)</li>
+              <li>Wireless operation via standard Wi-Fi protocols</li>
+              <li>Real-time highly responsive controls</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Working Principle -->
+      <section class="content-section reveal">
+        <h2>⚙️ Working Principle</h2>
+        <ol class="styled-list">
+          <li>
+            <strong>User Input</strong>
+            The user sends commands through a mobile application or external web interface.
+          </li>
+          <li>
+            <strong>Wi-Fi Communication</strong>
+            The embedded <em>NodeMCU ESP8266</em> receives the external commands securely over Wi-Fi.
+          </li>
+          <li>
+            <strong>Signal Processing</strong>
+            The microcontroller instantly processes the input and forwards high/low signals bridging to the relay module.
+          </li>
+          <li>
+            <strong>Device Control</strong>
+            The internal 4-channel relay module safely switches ON / OFF high-voltage electrical appliances like lights and fans.
+          </li>
+        </ol>
+      </section>
+
+      <!-- Components & Power -->
+      <section class="content-section reveal">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>🧩 Main Components</h3>
+            <ul>
+              <li>NodeMCU ESP8266 Board</li>
+              <li>4-Channel Relay Module Unit</li>
+              <li>Dedicated Power Supply</li>
+              <li>Jumper cables & Connecting wires</li>
+              <li>Electrical appliances (Bulbs / Fans)</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>🌍 Advantages</h3>
+            <ul>
+               <li>Seamless convenience & full automation</li>
+               <li>Energy & power saving abilities</li>
+               <li>Low cost and highly efficient layout</li>
+               <li>Scalable — Infinite extra devices can be added</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Limitations & Future -->
+      <section class="content-section reveal">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>⚠️ Limitations</h3>
+            <ul style="opacity: 0.8;">
+              <li>Strictly requires local Wi-Fi / Internet connection</li>
+              <li>Limited to binary basic ON/OFF control commands</li>
+              <li>Base prototype security can be further improved</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>🔮 Future Scope</h3>
+            <ul>
+              <li>Add mobile app with advanced Analytics UI</li>
+              <li>Audio voice control via Google Assistant or Alexa!</li>
+              <li>Advanced HTTPS IoT security enhancements</li>
+              <li>Trigger integrations via Temperature/Motion sensors</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="pro-tip">
+          <p style="margin:0; font-size: 1.1rem; color: var(--text-primary); font-weight: 500;">
+            <strong style="color:var(--accent-purple);">💡 Note:</strong> “Developed and implemented by Rahul Vishwakarma using NodeMCU ESP8266 and relay-based control system.”
+          </p>
+        </div>
+      </section>
+
+      <!-- Conclusion -->
+      <section class="content-section reveal" style="text-align: center; margin-top: 80px;">
+        <h2>🏁 Conclusion</h2>
+        <p style="max-width: 600px; margin: 0 auto;">The IoT Smart Home Automation System successfully demonstrates the use of internet-based control for home appliances. It highlights the potential of IoT in improving convenience, efficiency, and energy management in modern daily life.</p>
+        <br><br>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- ─── Robot Assistant UI ─── -->
+  <div class="robot-btn" id="robot-btn" title="Interactive Voice Assistant">
+    🤖 <span class="robot-badge">1</span>
+  </div>
+
+  <div class="robot-modal" id="robot-modal">
+    <div class="robot-modal-header">
+      <h3>IoT AI Assistant <span class="pulse-dot"></span></h3>
+      <button class="close-btn" id="robot-close">&times;</button>
+    </div>
+    <div class="robot-modal-body">
+      <p id="robot-status-text">Hi! I am the IoT Home system bot.</p>
+      
+      <div class="robot-actions">
+        <button class="btn btn-primary" id="btn-suno">
+          <span class="icon">🔊</span> SUNO (Listen)
+        </button>
+        <button class="btn btn-ghost pulse-mic" id="btn-doubt">
+          <span class="icon">🎤</span> Have a Doubt?
+        </button>
+      </div>
+      
+      <div class="robot-log" id="robot-log" style="display: none; color: var(--accent-purple); margin-top: 15px; font-size: 0.9rem;">
+        <em>Listening...</em>
+      </div>
+    </div>
+  </div>
+
+  <script src="iot-app.js"></script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rahul's Portfolio - Mechanical Engineer, AI Enthusiast & Creative Builder. Explore my projects in IoT, AI/ML, and Web Development.">
+  <title>Rahul | Engineer × Creator — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Three.js Galaxy Canvas -->
+  <canvas id="galaxy-canvas"></canvas>
+
+  <!-- Overlay Content -->
+  <div class="overlay" id="overlay">
+    <!-- Navigation -->
+    <nav class="nav" id="main-nav">
+      <div class="nav-logo">
+        <span class="logo-text">Rahul Vishwakarma</span>
+      </div>
+      <div class="nav-links">
+        <a href="#home" class="nav-link active" id="nav-home">Home</a>
+        <a href="#about" class="nav-link" id="nav-about">About</a>
+        <a href="#skills" class="nav-link" id="nav-skills">Skills</a>
+        <a href="#experience" class="nav-link" id="nav-experience">Experience</a>
+        <a href="#projects" class="nav-link" id="nav-projects">Projects</a>
+        <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
+      </div>
+      <button class="nav-cta" id="nav-cta-btn">Let's Talk</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-tag" id="hero-tag">
+          <span class="tag-dot"></span>
+          <span>Available for Opportunities</span>
+        </div>
+        <h1 class="hero-title" id="hero-title">
+          <span class="title-line">I Build Things</span>
+          <span class="title-line gradient-text">That Matter.</span>
+        </h1>
+        <p class="hero-subtitle" id="hero-subtitle">
+          Mechanical Engineer • AI Enthusiast • Creative Builder
+        </p>
+        <p class="hero-desc" id="hero-desc">
+          From solar water purifiers to IoT home systems — I blend engineering 
+          with technology to craft solutions that make a difference.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary" id="btn-explore">
+            <span>Explore My Work</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn-ghost" id="btn-connect">
+            <span>Connect</span>
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="hero-stats" id="hero-stats">
+          <div class="stat">
+            <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number" data-count="3">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Tech Domains</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number" data-count="100">0</span><span class="stat-plus">%</span>
+            <span class="stat-label">Passion Driven</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" id="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll to explore</span>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+      <div class="section-header">
+        <span class="section-tag">01</span>
+        <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a <strong>Mechanical Engineering</strong> student with a burning curiosity for <strong>AI, IoT, and creative technology</strong>. I don't just learn — I build.</p>
+          <p>Whether it's designing a solar water purifier, coding an IoT home automation system, or crafting futuristic web experiences — I believe in learning by creating.</p>
+          <p>My unique blend of <strong>engineering fundamentals</strong> and <strong>tech skills</strong> lets me approach problems from multiple angles. I'm not just an engineer — I'm a <em>builder</em>.</p>
+        </div>
+        <div class="about-highlights">
+          <div class="highlight-card" id="highlight-1">
+            <div class="highlight-icon">⚙️</div>
+            <h3>Engineering</h3>
+            <p>Mechanical design, thermodynamics, and practical problem-solving</p>
+          </div>
+          <div class="highlight-card" id="highlight-2">
+            <div class="highlight-icon">🤖</div>
+            <h3>AI & ML</h3>
+            <p>Python, machine learning concepts, and intelligent systems</p>
+          </div>
+          <div class="highlight-card" id="highlight-3">
+            <div class="highlight-icon">🌐</div>
+            <h3>Web Dev</h3>
+            <p>HTML, CSS, JavaScript, Node.js, and creative frontends</p>
+          </div>
+          <div class="highlight-card" id="highlight-4">
+            <div class="highlight-icon">📡</div>
+            <h3>IoT & SCADA</h3>
+            <p>Connected devices, automation, and industrial systems</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills-section" id="skills">
+      <div class="section-header">
+        <span class="section-tag">02</span>
+        <h2 class="section-title">My <span class="gradient-text">Arsenal</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3 class="skill-cat-title">Languages & Tools</h3>
+          <div class="skill-pills">
+            <span class="skill-pill" id="skill-python">Python</span>
+            <span class="skill-pill" id="skill-js">JavaScript</span>
+            <span class="skill-pill" id="skill-html">HTML/CSS</span>
+            <span class="skill-pill" id="skill-node">Node.js</span>
+            <span class="skill-pill" id="skill-matlab">MATLAB</span>
+            <span class="skill-pill" id="skill-git">Git & GitHub</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-cat-title">Engineering</h3>
+          <div class="skill-pills">
+            <span class="skill-pill" id="skill-cad">CAD Design</span>
+            <span class="skill-pill" id="skill-thermo">Thermodynamics</span>
+            <span class="skill-pill" id="skill-mech">Mechanical Design</span>
+            <span class="skill-pill" id="skill-scada">SCADA Systems</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-cat-title">Interests & Learning</h3>
+          <div class="skill-pills">
+            <span class="skill-pill glow" id="skill-ai">AI & Machine Learning</span>
+            <span class="skill-pill glow" id="skill-iot">IoT Systems</span>
+            <span class="skill-pill glow" id="skill-3d">3D Web Graphics</span>
+            <span class="skill-pill glow" id="skill-auto">Automation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience-section" id="experience">
+      <div class="section-header">
+        <span class="section-tag">03</span>
+        <h2 class="section-title">Work <span class="gradient-text">Experience</span></h2>
+      </div>
+      <div class="experience-grid">
+        <div class="experience-card" id="job-1">
+          <div class="experience-header">
+            <div class="experience-icon company-logo-wrapper">
+              <img src="https://www.ratnamani.com/images/ratnamani_logo.png" alt="Ratnamani Logo">
+            </div>
+            <div class="experience-title-group">
+              <h3 class="experience-title">Diploma Engineer Trainee (DET)</h3>
+              <p class="experience-company">Ratnamani Metals & Tubes Ltd.</p>
+            </div>
+          </div>
+          <div class="experience-details">
+            <span class="experience-dept">Department: Quality Management System (QMS)</span>
+          </div>
+          <p class="experience-desc">Working actively within the Quality Management System, ensuring manufacturing standards, process compliance, and contributing to engineering excellence in steel pipes and tubes manufacturing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects-section" id="projects">
+      <div class="section-header">
+        <span class="section-tag">04</span>
+        <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card" id="project-solar" onclick="window.location.href='solar-project.html'">
+          <div class="project-number">01</div>
+          <h3 class="project-title">Solar Water Purifier</h3>
+          <p class="project-desc">Designed and built a solar-powered water purification system combining mechanical engineering with sustainable energy principles.</p>
+          <div class="project-tags">
+            <span>Mechanical</span>
+            <span>Solar Energy</span>
+            <span>Sustainability</span>
+          </div>
+          <div class="project-link">
+            <span>View Details</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </div>
+        <div class="project-card" id="project-iot" onclick="window.location.href='iot-project.html'">
+          <div class="project-number">02</div>
+          <h3 class="project-title">IoT Home Automation</h3>
+          <p class="project-desc">Built a connected home system with sensors, microcontrollers, and a web dashboard for real-time monitoring and control.</p>
+          <div class="project-tags">
+            <span>IoT</span>
+            <span>Node.js</span>
+            <span>Hardware</span>
+          </div>
+          <div class="project-link">
+            <span>View Details</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+      <div class="section-header">
+        <span class="section-tag">05</span>
+        <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+      </div>
+      <div class="contact-content">
+        <p class="contact-text">I'm always excited to discuss new opportunities, interesting projects, or just tech in general. Drop me a message!</p>
+        <div class="contact-links">
+          <a href="mailto:rahulovishwakarma9@gmail.com" class="contact-card" id="contact-email">
+            <span class="contact-icon">📧</span>
+            <span class="contact-label">Email</span>
+            <span class="contact-value">Send Message ↗</span>
+          </a>
+          <a href="https://github.com/" class="contact-card" id="contact-github" target="_blank">
+            <span class="contact-icon">💻</span>
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">View GitHub ↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/rahulvishwakarma635/" class="contact-card" id="contact-linkedin" target="_blank">
+            <span class="contact-icon">🔗</span>
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">View Profile ↗</span>
+          </a>
+          <a href="https://www.instagram.com/iamrahul_vishwakarma?igsh=ZnVrYzBxMGFtMm0w" class="contact-card" id="contact-instagram" target="_blank">
+            <span class="contact-icon">📸</span>
+            <span class="contact-label">Instagram</span>
+            <span class="contact-value">Follow Me ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+      <p>Designed & Built by <span class="gradient-text">Rahul Vishwakarma</span> — 2026</p>
+      <p class="footer-sub">Engineer × Creator × Builder</p>
+    </footer>
+  </div>
+
+  <!-- ─── Robot Assistant UI ─── -->
+  <div class="robot-btn" id="robot-btn" title="Interactive Voice Assistant">
+    🤖 <span class="robot-badge">1</span>
+  </div>
+
+  <div class="robot-modal" id="robot-modal">
+    <div class="robot-modal-header">
+      <h3>AI Assistant <span class="pulse-dot"></span></h3>
+      <button class="close-btn" id="robot-close">&times;</button>
+    </div>
+    <div class="robot-modal-body">
+      <p id="robot-status-text">Hi! I am the portfolio assistant.</p>
+      
+      <div class="robot-actions">
+        <button class="btn btn-primary" id="btn-suno">
+          <span class="icon">🔊</span> SUNO (Listen)
+        </button>
+        <button class="btn btn-ghost pulse-mic" id="btn-doubt">
+          <span class="icon">🎤</span> Have a Doubt?
+        </button>
+      </div>
+      
+      <div class="robot-log" id="robot-log" style="display: none; color: var(--accent-purple); margin-top: 15px; font-size: 0.9rem;">
+        <em>Listening...</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="galaxy.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

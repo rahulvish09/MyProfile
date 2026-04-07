@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login - Portfolio Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: var(--bg-deep);
+    }
+    .login-container {
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .login-container h2 {
+      margin-bottom: 24px;
+      font-family: var(--font-display);
+      font-size: 2rem;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(4, 6, 15, 0.5);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      outline: none;
+    }
+    .input-group input:focus {
+      border-color: var(--accent-purple);
+    }
+    .login-btn {
+      width: 100%;
+      margin-top: 10px;
+      justify-content: center;
+    }
+    .error {
+      color: #ef4444;
+      font-size: 0.9rem;
+      margin-top: 15px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Three.js Background (Reusing galaxy) -->
+  <canvas id="galaxy-canvas"></canvas>
+
+  <div class="overlay login-container">
+    <h2>Admin <span class="gradient-text">Access</span></h2>
+    <form action="/api/admin/login" method="POST">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary login-btn">Secure Login</button>
+      <div class="error" id="error-msg">Incorrect credentials. Try again.</div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="galaxy.js"></script>
+  <script>
+    if (window.location.search.includes('error=1')) {
+      document.getElementById('error-msg').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
