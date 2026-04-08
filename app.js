@@ -145,9 +145,25 @@
   }
 
   // Voice Synthesis (SUNO Mode)
+  let indianVoice = null;
+  function loadVoices() {
+    const voices = window.speechSynthesis.getVoices();
+    // Prefer Indian English, explicitly fallback to Hindi
+    indianVoice = voices.find(voice => voice.lang === 'en-IN') || voices.find(voice => voice.lang === 'hi-IN');
+  }
+  
+  // Voices load asynchronously in some browsers
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  loadVoices();
+
   function speak(text) {
     window.speechSynthesis.cancel(); // restart
     const utterance = new SpeechSynthesisUtterance(text);
+    if (indianVoice) {
+      utterance.voice = indianVoice;
+    }
     utterance.rate = 0.9; // Slightly slower for better sounding 'bot'
     window.speechSynthesis.speak(utterance);
   }
