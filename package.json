@@ -6,13 +6,18 @@
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["portfolio", "nodejs", "analytics"],
+  "keywords": [
+    "portfolio",
+    "nodejs",
+    "analytics"
+  ],
   "author": "Rahul Vishwakarma",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
+    "nodemailer": "^8.0.5",
     "sqlite3": "^5.1.7"
   },
   "engines": {

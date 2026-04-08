@@ -67,6 +67,23 @@
     <!-- Custom Cursor Overlay injected dynamically by CV script -->
     <div id="virtual-cursor" style="display:none; position:fixed; top:0; left:0; width:20px; height:20px; border-radius:50%; background:var(--jarvis-blue); box-shadow:0 0 15px var(--jarvis-blue); z-index:9999; pointer-events:none; transform:translate(-50%, -50%); transition: transform 0.05s ease-out, background 0.1s; mix-blend-mode: screen;"></div>
 
+    <!-- Hidden canvas for snapshot capture -->
+    <canvas id="snapshot_canvas" style="display:none;"></canvas>
+
+    <!-- Feedback Modal Overlay -->
+    <div id="feedback-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; display:none; align-items:center; justify-content:center;">
+      <div style="background:#111; border:2px solid var(--stark-gold); padding:30px; max-width:450px; width:90%; text-align:center;">
+        <h2 style="color:var(--stark-red); margin-bottom:15px; letter-spacing:2px;">SESSION REPORT</h2>
+        <p style="color:var(--stark-gold); font-size:0.85rem; margin-bottom:20px;">Your photo has been captured. Please rate your experience below.</p>
+        <textarea id="feedback-text" placeholder="How was the experience? (optional)" rows="3" style="width:100%; background:#000; color:var(--jarvis-blue); border:1px solid var(--jarvis-blue); padding:10px; font-family:inherit; resize:none; margin-bottom:15px;"></textarea>
+        <div style="display:flex; gap:10px;">
+          <button id="feedback-submit" class="btn-jarvis" style="flex:1;">TRANSMIT REPORT</button>
+          <button id="feedback-skip" class="btn-jarvis" style="flex:1; border-color:var(--stark-red); color:var(--stark-red);">SKIP</button>
+        </div>
+        <p id="feedback-status" style="color:var(--stark-gold); margin-top:15px; font-size:0.8rem; display:none;"></p>
+      </div>
+    </div>
+
     <script src="gesture-lab.js"></script>
 </body>
 </html>

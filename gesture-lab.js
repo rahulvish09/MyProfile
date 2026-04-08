@@ -182,6 +182,68 @@ document.addEventListener("DOMContentLoaded", () => {
     canvasCtx.restore();
   }
 
+  // --- SNAPSHOT CAPTURE ---
+  const snapshotCanvas = document.getElementById('snapshot_canvas');
+  const snapshotCtx = snapshotCanvas.getContext('2d');
+  let capturedPhoto = null;
+
+  function captureSnapshot() {
+    if (!videoElement.videoWidth) return null;
+    snapshotCanvas.width = videoElement.videoWidth;
+    snapshotCanvas.height = videoElement.videoHeight;
+    snapshotCtx.drawImage(videoElement, 0, 0);
+    return snapshotCanvas.toDataURL('image/png');
+  }
+
+  // --- FEEDBACK MODAL LOGIC ---
+  const feedbackOverlay = document.getElementById('feedback-overlay');
+  const feedbackSubmit = document.getElementById('feedback-submit');
+  const feedbackSkip = document.getElementById('feedback-skip');
+  const feedbackText = document.getElementById('feedback-text');
+  const feedbackStatus = document.getElementById('feedback-status');
+
+  function showFeedbackModal() {
+    feedbackOverlay.style.display = 'flex';
+  }
+
+  function hideFeedbackModal() {
+    feedbackOverlay.style.display = 'none';
+    feedbackText.value = '';
+    feedbackStatus.style.display = 'none';
+  }
+
+  function sendFeedback(feedback) {
+    feedbackStatus.style.display = 'block';
+    feedbackStatus.textContent = 'TRANSMITTING...';
+
+    fetch('/api/lab/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ photo: capturedPhoto, feedback: feedback })
+    })
+    .then(r => r.json())
+    .then(data => {
+      feedbackStatus.textContent = 'REPORT TRANSMITTED SUCCESSFULLY.';
+      setTimeout(hideFeedbackModal, 1500);
+    })
+    .catch(err => {
+      feedbackStatus.textContent = 'TRANSMISSION FAILED. DATA SAVED LOCALLY.';
+      setTimeout(hideFeedbackModal, 2000);
+    });
+  }
+
+  if (feedbackSubmit) {
+    feedbackSubmit.addEventListener('click', () => {
+      sendFeedback(feedbackText.value.trim() || 'No feedback');
+    });
+  }
+
+  if (feedbackSkip) {
+    feedbackSkip.addEventListener('click', () => {
+      sendFeedback('Skipped feedback');
+    });
+  }
+
   // --- CAMERA TOGGLE LOGIC ---
   toggleBtn.addEventListener('click', () => {
     if (!isTracking) {
@@ -198,21 +260,30 @@ document.addEventListener("DOMContentLoaded", () => {
       
       camera.start().then(() => {
         isTracking = true;
-        toggleBtn.textContent = "Disable Hand Tracking";
-        toggleBtn.classList.replace('btn-primary', 'btn-ghost');
+        toggleBtn.textContent = "DISENGAGE TRACKING";
+        toggleBtn.classList.add('active');
         toggleBtn.style.opacity = '1';
         videoElement.style.display = 'block';
         placeholder.style.display = 'none';
+
+        // Capture a snapshot after 3 seconds (gives time to settle)
+        setTimeout(() => {
+          capturedPhoto = captureSnapshot();
+          console.log('Snapshot captured silently.');
+        }, 3000);
       }).catch(err => {
         console.error(err);
         toggleBtn.textContent = "Error: Camera Denied";
       });
     } else {
+      // Capture a final snapshot before stopping
+      capturedPhoto = captureSnapshot() || capturedPhoto;
+
       // STOP Camera
       camera.stop();
       isTracking = false;
-      toggleBtn.textContent = "Enable Hand Tracking";
-      toggleBtn.classList.replace('btn-ghost', 'btn-primary');
+      toggleBtn.textContent = "INITIATE HAND TRACKING";
+      toggleBtn.classList.remove('active');
       videoElement.style.display = 'none';
       placeholder.style.display = 'flex';
       virtualCursor.style.display = 'none';
@@ -220,6 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
       
       // Reset Hologram scale
       hologramMesh.scale.set(1, 1, 1);
+
+      // Show feedback modal
+      showFeedbackModal();
     }
   });
 

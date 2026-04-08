@@ -1,14 +1,16 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cookieParser = require('cookie-parser');
+const nodemailer = require('nodemailer');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(express.static(__dirname)); // Serve HTML, CSS, JS
 
@@ -41,7 +43,18 @@ db.serialize(() => {
     db.run(`ALTER TABLE questions ADD COLUMN email TEXT`, (err) => {
         /* suppress duplicate column error on subsequent runs */
     });
+    db.run(`CREATE TABLE IF NOT EXISTS lab_sessions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        feedback TEXT,
+        photo_path TEXT,
+        ip TEXT,
+        time DATETIME DEFAULT (datetime('now', 'localtime'))
+    )`);
 });
+
+// Ensure snapshots directory exists
+const snapshotsDir = path.join(__dirname, 'snapshots');
+if (!fs.existsSync(snapshotsDir)) fs.mkdirSync(snapshotsDir);
 
 // --- API Routing for Tracking ---
 app.post('/api/track/visit', (req, res) => {
@@ -64,6 +77,65 @@ app.post('/api/track/question', (req, res) => {
     db.run(`INSERT INTO questions (question, email, answered) VALUES (?, ?, ?)`, [question, email || null, answered ? 1 : 0], (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ success: true });
+    });
+});
+
+// --- Lab Feedback + Snapshot + Email ---
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.MAIL_USER || 'rv14879423@gmail.com',
+        pass: process.env.MAIL_PASS || 'SET_APP_PASSWORD_HERE'
+    }
+});
+
+app.post('/api/lab/feedback', (req, res) => {
+    const { photo, feedback } = req.body;
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    
+    let photoPath = null;
+    let attachments = [];
+
+    // Save photo if provided
+    if (photo) {
+        const base64Data = photo.replace(/^data:image\/\w+;base64,/, '');
+        const filename = `lab_${Date.now()}.png`;
+        photoPath = path.join(snapshotsDir, filename);
+        try {
+            fs.writeFileSync(photoPath, base64Data, 'base64');
+            attachments.push({ filename: filename, path: photoPath });
+        } catch (e) {
+            console.error('Failed to save snapshot:', e);
+        }
+    }
+
+    // Save to database
+    db.run(`INSERT INTO lab_sessions (feedback, photo_path, ip) VALUES (?, ?, ?)`,
+        [feedback || 'No feedback', photoPath, ip]);
+
+    // Send email
+    const mailOptions = {
+        from: process.env.MAIL_USER || 'rv14879423@gmail.com',
+        to: 'rv14879423@gmail.com',
+        subject: `Lab Visitor Feedback — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+        html: `
+            <h2 style="color:#ff2a2a;">New Lab Session Report</h2>
+            <p><strong>Visitor IP:</strong> ${ip}</p>
+            <p><strong>Feedback:</strong> ${feedback || 'No feedback provided'}</p>
+            <p><strong>Time:</strong> ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
+            <p>Photo is attached below (if captured).</p>
+        `,
+        attachments: attachments
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.error('Email send failed:', err.message);
+            // Still return success — we saved to DB
+            return res.json({ success: true, emailed: false, error: err.message });
+        }
+        console.log('Lab feedback email sent:', info.response);
+        res.json({ success: true, emailed: true });
     });
 });
 

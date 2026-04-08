@@ -1,5 +1,6 @@
 node_modules/
 tracker.db
+snapshots/
 *.pyc
 __pycache__/
 .env
