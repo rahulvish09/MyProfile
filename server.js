@@ -81,62 +81,71 @@ app.post('/api/track/question', (req, res) => {
 });
 
 // --- Lab Feedback + Snapshot + Email ---
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.MAIL_USER || 'rv14879423@gmail.com',
-        pass: process.env.MAIL_PASS || 'SET_APP_PASSWORD_HERE'
-    }
-});
-
 app.post('/api/lab/feedback', (req, res) => {
-    const { photo, feedback } = req.body;
-    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    
-    let photoPath = null;
-    let attachments = [];
+    try {
+        const { photo, feedback } = req.body;
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        
+        let photoPath = null;
+        let attachments = [];
 
-    // Save photo if provided
-    if (photo) {
-        const base64Data = photo.replace(/^data:image\/\w+;base64,/, '');
-        const filename = `lab_${Date.now()}.png`;
-        photoPath = path.join(snapshotsDir, filename);
-        try {
-            fs.writeFileSync(photoPath, base64Data, 'base64');
-            attachments.push({ filename: filename, path: photoPath });
-        } catch (e) {
-            console.error('Failed to save snapshot:', e);
+        // Save photo if provided
+        if (photo) {
+            const base64Data = photo.replace(/^data:image\/\w+;base64,/, '');
+            const filename = `lab_${Date.now()}.png`;
+            photoPath = path.join(snapshotsDir, filename);
+            try {
+                fs.writeFileSync(photoPath, base64Data, 'base64');
+                attachments.push({ filename: filename, path: photoPath });
+            } catch (e) {
+                console.error('Failed to save snapshot:', e);
+            }
         }
+
+        // Save to database
+        db.run(`INSERT INTO lab_sessions (feedback, photo_path, ip) VALUES (?, ?, ?)`,
+            [feedback || 'No feedback', photoPath, ip]);
+
+        // Send email only if credentials are configured
+        const mailUser = process.env.MAIL_USER;
+        const mailPass = process.env.MAIL_PASS;
+        
+        if (mailUser && mailPass) {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: { user: mailUser, pass: mailPass }
+            });
+
+            const mailOptions = {
+                from: mailUser,
+                to: 'rv14879423@gmail.com',
+                subject: `Lab Visitor Feedback — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
+                html: `
+                    <h2 style="color:#ff2a2a;">New Lab Session Report</h2>
+                    <p><strong>Visitor IP:</strong> ${ip}</p>
+                    <p><strong>Feedback:</strong> ${feedback || 'No feedback provided'}</p>
+                    <p><strong>Time:</strong> ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
+                    <p>Photo is attached below (if captured).</p>
+                `,
+                attachments: attachments
+            };
+
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    console.error('Email send failed:', err.message);
+                    return res.json({ success: true, emailed: false, error: err.message });
+                }
+                console.log('Lab feedback email sent:', info.response);
+                res.json({ success: true, emailed: true });
+            });
+        } else {
+            console.log('Mail credentials not set, skipping email. Data saved to DB.');
+            res.json({ success: true, emailed: false });
+        }
+    } catch (err) {
+        console.error('Lab feedback error:', err);
+        res.json({ success: true, emailed: false });
     }
-
-    // Save to database
-    db.run(`INSERT INTO lab_sessions (feedback, photo_path, ip) VALUES (?, ?, ?)`,
-        [feedback || 'No feedback', photoPath, ip]);
-
-    // Send email
-    const mailOptions = {
-        from: process.env.MAIL_USER || 'rv14879423@gmail.com',
-        to: 'rv14879423@gmail.com',
-        subject: `Lab Visitor Feedback — ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`,
-        html: `
-            <h2 style="color:#ff2a2a;">New Lab Session Report</h2>
-            <p><strong>Visitor IP:</strong> ${ip}</p>
-            <p><strong>Feedback:</strong> ${feedback || 'No feedback provided'}</p>
-            <p><strong>Time:</strong> ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
-            <p>Photo is attached below (if captured).</p>
-        `,
-        attachments: attachments
-    };
-
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.error('Email send failed:', err.message);
-            // Still return success — we saved to DB
-            return res.json({ success: true, emailed: false, error: err.message });
-        }
-        console.log('Lab feedback email sent:', info.response);
-        res.json({ success: true, emailed: true });
-    });
 });
 
 // --- Admin Authentication ---
