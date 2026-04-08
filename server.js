@@ -33,9 +33,14 @@ db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS questions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         question TEXT,
+        email TEXT,
         answered BOOLEAN DEFAULT 0,
         time DATETIME DEFAULT (datetime('now', 'localtime'))
     )`);
+    // Safe schema update for existing databases
+    db.run(`ALTER TABLE questions ADD COLUMN email TEXT`, (err) => {
+        /* suppress duplicate column error on subsequent runs */
+    });
 });
 
 // --- API Routing for Tracking ---
@@ -55,8 +60,8 @@ app.post('/api/track/click', (req, res) => {
 });
 
 app.post('/api/track/question', (req, res) => {
-    const { question, answered } = req.body;
-    db.run(`INSERT INTO questions (question, answered) VALUES (?, ?)`, [question, answered ? 1 : 0], (err) => {
+    const { question, answered, email } = req.body;
+    db.run(`INSERT INTO questions (question, email, answered) VALUES (?, ?, ?)`, [question, email || null, answered ? 1 : 0], (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ success: true });
     });

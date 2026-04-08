@@ -142,12 +142,13 @@
           <tr>
             <th>ID</th>
             <th>Question / Doubt</th>
+            <th>Email</th>
             <th>Status</th>
             <th>Time (Local)</th>
           </tr>
         </thead>
         <tbody id="questions-body">
-          <tr><td colspan="4">Loading...</td></tr>
+          <tr><td colspan="5">Loading...</td></tr>
         </tbody>
       </table>
     </div>
@@ -214,13 +215,15 @@
         document.getElementById('visits-body').innerHTML = visitsHtml;
 
         let questionsHtml = '';
-        if (!data.questions || data.questions.length === 0) questionsHtml = '<tr><td colspan="4">No doubts asked yet.</td></tr>';
+        if (!data.questions || data.questions.length === 0) questionsHtml = '<tr><td colspan="5">No doubts asked yet.</td></tr>';
         else {
           data.questions.forEach(q => {
             let status = q.answered ? '<span style="color:var(--accent-blue)">Answered</span>' : '<span style="color:#ef4444">Needs Review</span>';
+            let emailLink = q.email ? `<a href="mailto:${q.email}" style="color: var(--accent-blue); text-decoration: none;">${q.email}</a>` : '<span style="color:var(--text-secondary)">Not provided</span>';
             questionsHtml += `<tr>
               <td>#${q.id}</td>
               <td>${q.question}</td>
+              <td>${emailLink}</td>
               <td>${status}</td>
               <td>${parseDate(q.time)}</td>
             </tr>`;
@@ -287,7 +290,7 @@
       reportHtml += `</table>`;
 
       reportHtml += `<h2 style="font-size: 1.1rem; margin-bottom: 10px; border-bottom:1px solid #eee; padding-bottom:5px;">Visitor Doubts / Questions</h2><table style="${tableStyle}">`;
-      reportHtml += `<tr><th style="${thStyle}">ID</th><th style="${thStyle}">Question</th><th style="${thStyle}">Status</th><th style="${thStyle}">Time</th></tr>`;
+      reportHtml += `<tr><th style="${thStyle}">ID</th><th style="${thStyle}">Question</th><th style="${thStyle}">Email</th><th style="${thStyle}">Status</th><th style="${thStyle}">Time</th></tr>`;
       
       document.querySelectorAll('#questions-body tr').forEach(row => {
           reportHtml += '<tr>';

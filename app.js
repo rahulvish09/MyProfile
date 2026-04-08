@@ -197,14 +197,36 @@
         speak("I am Rahul's virtual portfolio assistant! I am here to help you navigate his work.");
       } else {
         // Unknown question fallback
-        speak("I am sorry, I do not know the answer to that. I have sent your exact question to Rahul's admin dashboard, he will review it soon!");
+        speak("I am sorry, I do not know the answer to that. Please type your email so Rahul can reply to you directly.");
         
-        // Send to backend
-        fetch('/api/track/question', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: transcript, answered: false })
-        }).catch(err => console.error("Failed to send question:", err));
+        robotLog.innerHTML = `
+          <strong>You asked:</strong> "${transcript}"<br><br>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">I don't know the answer! Please leave your email so the admin can reply to you:</div>
+          <div style="display: flex; gap: 8px; margin-top: 5px;">
+            <input type="email" id="doubt-email-input" placeholder="your@email.com" required style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.5); color: white; outline: none;">
+            <button id="doubt-email-submit" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 6px; border: none; cursor: pointer;">Send</button>
+          </div>
+        `;
+        
+        document.getElementById('doubt-email-submit').addEventListener('click', () => {
+          const emailInput = document.getElementById('doubt-email-input');
+          const email = emailInput.value.trim();
+          
+          if(!email || !email.includes('@')) {
+            emailInput.style.border = "1px solid red";
+            return;
+          }
+
+          // Send to backend
+          fetch('/api/track/question', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: transcript, email: email, answered: false })
+          }).catch(err => console.error("Failed to send question:", err));
+          
+          robotLog.innerHTML = `<strong style="color: var(--accent-blue);">Sent successfully!</strong> Admin will email you shortly.`;
+          speak("Thank you, your doubt and email have been sent securely.");
+        });
       }
     };
 
