@@ -28,7 +28,7 @@
         <a href="#experience" class="nav-link" id="nav-experience">Experience</a>
         <a href="#projects" class="nav-link" id="nav-projects">Projects</a>
         <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
-        <a href="#gesture-lab" class="nav-link" id="nav-lab" style="color:var(--accent-blue)">The Lab</a>
+        <a href="lab.html" class="nav-link" id="nav-lab" style="color:var(--accent-blue)">The Lab</a>
       </div>
       <button class="nav-cta" id="nav-cta-btn">Let's Talk</button>
     </nav>
@@ -267,37 +267,6 @@
       </div>
     </section>
 
-    <!-- Gesture Lab Section (The Iron Man Feature) -->
-    <section class="section gesture-lab" id="gesture-lab">
-      <div class="section-header">
-        <span class="section-tag">06</span>
-        <h2 class="section-title">The <span class="gradient-text">Lab</span> (Beta)</h2>
-      </div>
-      <div class="lab-container">
-        <div class="lab-controls">
-          <h3>Computer Vision Setup</h3>
-          <p>Toggle your webcam to enable <strong>Iron Man Hand Gestures</strong>.</p>
-          <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
-            <li><strong style="color:var(--accent-blue)">Pointer:</strong> Track using your Index Finger.</li>
-            <li><strong style="color:var(--accent-blue)">Click:</strong> Pinch Index + Thumb precisely to click.</li>
-            <li><strong style="color:var(--accent-blue)">Scroll:</strong> Slide your Index Finger up/down to scroll.</li>
-            <li><strong style="color:var(--accent-pink)">Snap (Stop):</strong> Fold your Middle finger tight to your palm to return Home!</li>
-          </ul>
-          <button id="toggle-camera-btn" class="btn btn-primary" style="margin-bottom:20px;">Enable Hand Tracking</button>
-          <div class="camera-feed-container" style="position:relative; width:100%; aspect-ratio: 16/9; background:#000; border-radius:12px; overflow:hidden; border:2px solid var(--border);">
-             <video id="input_video" style="width:100%; height:100%; object-fit:cover; display:none; transform: scaleX(-1);"></video>
-             <canvas id="output_canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; transform: scaleX(-1);"></canvas>
-             <div id="camera-placeholder" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--text-secondary);">Camera Disabled</div>
-          </div>
-        </div>
-        <div class="lab-3d-viewport">
-           <h3>3D Object Generation (Hand Controlled)</h3>
-           <p>When tracking is active, the holographic object below will map identically to your physical hand rotation!</p>
-           <div id="gesture-3d-canvas" style="width:100%; height:400px; background: rgba(0,0,0,0.4); border-radius:12px; border:1px solid var(--border); overflow:hidden;"></div>
-        </div>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer" id="footer">
       <p>Designed & Built by <span class="gradient-text">Rahul Vishwakarma</span> — 2026</p>
@@ -333,21 +302,8 @@
     </div>
   </div>
 
-  <!-- MediaPipe Hands + Drawing CDN via unpkg -->
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-
-  <!-- Three.js via CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
   <!-- App Logic -->
   <script src="galaxy.js"></script>
   <script src="app.js"></script>
-  <script src="gesture-lab.js"></script>
-
-  <!-- Central Virtual Cursor Overlay -->
-  <div id="virtual-cursor" style="display:none; position:fixed; top:0; left:0; width:20px; height:20px; border-radius:50%; background:var(--accent-blue); box-shadow:0 0 10px var(--accent-blue); z-index:9999; pointer-events:none; transform:translate(-50%, -50%); transition: transform 0.05s ease-out, scale 0.1s; mix-blend-mode: exclusion;"></div>
 </body>
 </html>

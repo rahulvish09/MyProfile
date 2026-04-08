@@ -1,0 +1,191 @@
+/* ============================================
+   LAB.CSS — J.A.R.V.I.S / Iron Man Theme
+   ============================================ */
+
+:root {
+  --stark-red: #ff2a2a;
+  --stark-gold: #ffcc00;
+  --jarvis-blue: #00f0ff;
+  --bg-dark: #050000;
+  --grid-line: rgba(255, 42, 42, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--jarvis-blue);
+  /* Tech Grid Background */
+  background-image: 
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.lab-header {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--stark-red);
+  box-shadow: 0 0 20px rgba(255, 42, 42, 0.4);
+  background: rgba(0,0,0,0.8);
+}
+
+.lab-title {
+  font-size: 2rem;
+  letter-spacing: 4px;
+  color: var(--stark-red);
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--stark-red);
+  margin-bottom: 5px;
+}
+
+.lab-subtitle {
+  color: var(--stark-gold);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+.btn-back {
+  text-decoration: none;
+  color: var(--stark-red);
+  border: 1px solid var(--stark-red);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+}
+
+.btn-back:hover {
+  background: var(--stark-red);
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px var(--stark-red);
+}
+
+/* Main Content */
+.hud-container {
+  display: flex;
+  flex: 1;
+  padding: 30px;
+  gap: 30px;
+  height: calc(100vh - 90px);
+}
+
+/* Panels */
+.hud-panel {
+  border: 1px solid var(--stark-gold);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  box-shadow: inset 0 0 20px rgba(255, 204, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Corner Accents */
+.hud-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 20px; height: 20px;
+  border-top: 2px solid var(--stark-red);
+  border-left: 2px solid var(--stark-red);
+}
+
+.hud-panel::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 20px; height: 20px;
+  border-bottom: 2px solid var(--stark-red);
+  border-right: 2px solid var(--stark-red);
+}
+
+/* Left Panel - Camera & Controls */
+.hud-left {
+  flex: 1;
+}
+
+.btn-jarvis {
+  background: transparent;
+  color: var(--jarvis-blue);
+  border: 1px solid var(--jarvis-blue);
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-jarvis:hover, .btn-jarvis.active {
+  background: var(--jarvis-blue);
+  color: black;
+  box-shadow: 0 0 20px var(--jarvis-blue);
+}
+
+.camera-feed-container {
+  position: relative;
+  width: 100%;
+  background: #000;
+  border: 1px solid var(--jarvis-blue);
+  margin-top: 20px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right Panel - 3D Render */
+.hud-right {
+  flex: 2;
+}
+
+#gesture-3d-canvas {
+  flex: 1;
+  background: radial-gradient(circle, rgba(255,42,42,0.1) 0%, rgba(0,0,0,0.8) 100%);
+  border: 1px solid var(--stark-red);
+  margin-top: 20px;
+}
+
+/* Typography elements */
+.system-text {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--stark-gold);
+}
+
+.system-header {
+  color: var(--stark-red);
+  border-bottom: 1px dashed var(--stark-red);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+ul.cheatsheet {
+  list-style-type: square;
+  padding-left: 20px;
+  margin-top: 10px;
+  color: var(--jarvis-blue);
+}
+
+ul.cheatsheet li {
+  margin-bottom: 8px;
+}

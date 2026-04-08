@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.A.R.V.I.S. | The Lab</title>
+    <!-- Custom Iron Man GUI Styles -->
+    <link rel="stylesheet" href="lab.css">
+    
+    <!-- MediaPipe Script Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <!-- Three.js for Hologram -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <!-- Top HUD Header -->
+    <header class="lab-header">
+        <div>
+            <h1 class="lab-title">The Lab</h1>
+            <div class="lab-subtitle">A.I. GESTURE INTELLIGENCE SYSTEM</div>
+        </div>
+        <a href="index.html" class="btn-back">REVERT TO PORTFOLIO</a>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="hud-container">
+        
+        <!-- Left Panel: Computer Vision -->
+        <section class="hud-panel hud-left">
+            <h2 class="system-header">VISION SENSORS</h2>
+            <span class="system-text">Status: <strong class="warning">OFFLINE</strong></span>
+            
+            <button id="toggle-camera-btn" class="btn-jarvis">INITIATE HAND TRACKING</button>
+            
+            <div class="camera-feed-container">
+                <video id="input_video" style="width:100%; height:100%; object-fit:cover; display:none; transform: scaleX(-1);"></video>
+                <canvas id="output_canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; transform: scaleX(-1);"></canvas>
+                <div id="camera-placeholder" style="color:var(--stark-red); opacity:0.5; letter-spacing: 2px;">STANDBY MODE</div>
+            </div>
+            
+            <div style="margin-top:20px;">
+                <h2 class="system-header" style="font-size:1rem;">OPERATIONAL FLIGHT MANUAL</h2>
+                <ul class="cheatsheet">
+                    <li><strong style="color:var(--stark-gold)">[POINTER]</strong> Navigate via Index Finger positioning.</li>
+                    <li><strong style="color:var(--stark-gold)">[ENGAGE]</strong> Pinch Thumb + Index to click.</li>
+                    <li><strong style="color:var(--stark-gold)">[OVERRIDE]</strong> Fold Middle finger into palm instantly to kill tracking and return to base.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Right Panel: Hologram -->
+        <section class="hud-panel hud-right">
+            <h2 class="system-header">HOLOGRAPHIC PROJECTION UNIT</h2>
+            <span class="system-text">Awaiting input... The Arc Reactor spatial lattice syncs permanently with Right Hand positional depth and pitch data.</span>
+            
+            <!-- Where Three.js will inject the arc reactor -->
+            <div id="gesture-3d-canvas"></div>
+        </section>
+
+    </main>
+
+    <!-- Custom Cursor Overlay injected dynamically by CV script -->
+    <div id="virtual-cursor" style="display:none; position:fixed; top:0; left:0; width:20px; height:20px; border-radius:50%; background:var(--jarvis-blue); box-shadow:0 0 15px var(--jarvis-blue); z-index:9999; pointer-events:none; transform:translate(-50%, -50%); transition: transform 0.05s ease-out, background 0.1s; mix-blend-mode: screen;"></div>
+
+    <script src="gesture-lab.js"></script>
+</body>
+</html>

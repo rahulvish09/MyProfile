@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Create an Iron Man Arc-Reactor style geometry
   const geometry = new THREE.IcosahedronGeometry(2, 1);
-  const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.8 });
+  const material = new THREE.MeshBasicMaterial({ color: 0xff2a2a, wireframe: true, transparent: true, opacity: 0.8 });
   const hologramMesh = new THREE.Mesh(geometry, material);
   
   // Inner core
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const landmarks = results.multiHandLandmarks[0];
       
       // Draw bones visually on the webcam overlay
-      drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#00f0ff', lineWidth: 2});
+      drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#ff2a2a', lineWidth: 2});
       drawLandmarks(canvasCtx, landmarks, {color: '#ffffff', lineWidth: 1, radius: 2});
 
       // --- PAGE DOMINATION CONTROL ---
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (snapDistance < 0.25 && indexExtend > 0.4) {
         // Trigger Shutdown!
         if (isTracking) toggleBtn.click(); // Stop camera via its native logic
-        window.location.hash = "#home"; // Fly user back exactly to #home!
+        window.location.href = "index.html"; // Fly user completely back to the main portfolio!
         return; // Halt further drawing loop frames instantly
       }
 
