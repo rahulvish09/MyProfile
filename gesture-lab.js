@@ -90,9 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
       drawLandmarks(canvasCtx, landmarks, {color: '#ffffff', lineWidth: 1, radius: 2});
 
       // --- PAGE DOMINATION CONTROL ---
-      // Get tip of Index Finger (8) and Thumb (4)
+      // Get tip of Index Finger (8) and Thumb (4) and Middle (12)
       const indexTip = landmarks[8];
       const thumbTip = landmarks[4];
+      const middleTip = landmarks[12];
       const wrist = landmarks[0];
 
       // Mirror X coordinates because webcam is mirrored
@@ -102,6 +103,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update virtual cursor position
       virtualCursor.style.left = `${mappedX}px`;
       virtualCursor.style.top = `${mappedY}px`;
+
+      // ─── SNAP DETECTION ───
+      // If Middle Finger tip is folded incredibly deeply into the palm base (wrist), but Index is straight.
+      const snapDistance = Math.sqrt(Math.pow(middleTip.x - wrist.x, 2) + Math.pow(middleTip.y - wrist.y, 2));
+      const indexExtend = Math.sqrt(Math.pow(indexTip.x - wrist.x, 2) + Math.pow(indexTip.y - wrist.y, 2));
+      
+      // If Middle is folded tightly and Index is extended
+      if (snapDistance < 0.25 && indexExtend > 0.4) {
+        // Trigger Shutdown!
+        if (isTracking) toggleBtn.click(); // Stop camera via its native logic
+        window.location.hash = "#home"; // Fly user back exactly to #home!
+        return; // Halt further drawing loop frames instantly
+      }
 
       // Calculate Pinch Distance
       const distance = Math.sqrt(Math.pow(indexTip.x - thumbTip.x, 2) + Math.pow(indexTip.y - thumbTip.y, 2));
@@ -131,17 +145,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // SLIDING/SCROLLING LOGIC: Open hand moving vertically
-      // Use wrist Y position to determine large movements
+      // SLIDING/SCROLLING LOGIC: Tracking Index Finger Vertically
       if (distance > 0.1 && !isPinching) {
         if (lastHandY !== null) {
-          const deltaY = wrist.y - lastHandY;
-          if (Math.abs(deltaY) > 0.01) { // Deadzone
-            // Scroll the window
+          const deltaY = indexTip.y - lastHandY;
+          if (Math.abs(deltaY) > 0.005) { // Responsive deadzone
+            // Scroll the window dynamically based on index finger!
             window.scrollBy({ top: deltaY * 3000, behavior: 'instant' });
           }
         }
-        lastHandY = wrist.y;
+        lastHandY = indexTip.y;
       } else {
         lastHandY = null; // Clear if pinched or lost
       }

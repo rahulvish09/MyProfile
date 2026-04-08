@@ -276,7 +276,13 @@
       <div class="lab-container">
         <div class="lab-controls">
           <h3>Computer Vision Setup</h3>
-          <p>Toggle your webcam to enable <strong>Iron Man Hand Gestures</strong>. Use your webcam to slide to scroll the page, and pinch your index and thumb to click options!</p>
+          <p>Toggle your webcam to enable <strong>Iron Man Hand Gestures</strong>.</p>
+          <ul style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+            <li><strong style="color:var(--accent-blue)">Pointer:</strong> Track using your Index Finger.</li>
+            <li><strong style="color:var(--accent-blue)">Click:</strong> Pinch Index + Thumb precisely to click.</li>
+            <li><strong style="color:var(--accent-blue)">Scroll:</strong> Slide your Index Finger up/down to scroll.</li>
+            <li><strong style="color:var(--accent-pink)">Snap (Stop):</strong> Fold your Middle finger tight to your palm to return Home!</li>
+          </ul>
           <button id="toggle-camera-btn" class="btn btn-primary" style="margin-bottom:20px;">Enable Hand Tracking</button>
           <div class="camera-feed-container" style="position:relative; width:100%; aspect-ratio: 16/9; background:#000; border-radius:12px; overflow:hidden; border:2px solid var(--border);">
              <video id="input_video" style="width:100%; height:100%; object-fit:cover; display:none; transform: scaleX(-1);"></video>
