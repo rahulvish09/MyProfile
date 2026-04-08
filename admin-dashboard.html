@@ -160,9 +160,21 @@
     // Fetch data and populate
     const parseDate = (d) => {
       if (!d) return 'Unknown';
-      let dateObj = new Date(d.replace(' ', 'T') + 'Z'); // Treat as UTC since servers usually run in UTC
+      
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      let dateString = d.replace(' ', 'T');
+      if (!isLocal) {
+        dateString += 'Z'; // Treat as UTC if deployed because Render runs in UTC
+      }
+      
+      let dateObj = new Date(dateString); 
       if (isNaN(dateObj)) dateObj = new Date(d.replace(' ', 'T')); // Fallback
-      return isNaN(dateObj) ? d : dateObj.toLocaleString();
+      
+      return isNaN(dateObj) ? d : dateObj.toLocaleString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: true
+      });
     };
 
     fetch('/api/admin/data')
