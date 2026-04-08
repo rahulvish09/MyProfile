@@ -98,6 +98,7 @@ app.get('/api/admin/logout', (req, res) => {
 
 // --- Admin Dashboard ---
 app.get('/dashboard', authMiddleware, (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.sendFile(path.join(__dirname, 'admin-dashboard.html'));
 });
 
@@ -128,7 +129,6 @@ app.get('/api/admin/data', authMiddleware, (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Node Server tracking traffic at http://localhost:${PORT}/`);
-    console.log(`Admin panel running at http://localhost:${PORT}/admin`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Node Server tracking traffic at Port ${PORT}`);
 });
