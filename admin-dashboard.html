@@ -158,6 +158,13 @@
   <script src="galaxy.js"></script>
   <script>
     // Fetch data and populate
+    const parseDate = (d) => {
+      if (!d) return 'Unknown';
+      let dateObj = new Date(d.replace(' ', 'T') + 'Z'); // Treat as UTC since servers usually run in UTC
+      if (isNaN(dateObj)) dateObj = new Date(d.replace(' ', 'T')); // Fallback
+      return isNaN(dateObj) ? d : dateObj.toLocaleString();
+    };
+
     fetch('/api/admin/data')
       .then(res => res.json())
       .then(data => {
@@ -171,7 +178,7 @@
             <td>#${c.id}</td>
             <td class="highlight">${c.target_url || 'Unknown'}</td>
             <td>${c.link_id}</td>
-            <td>${new Date(c.time).toLocaleString()}</td>
+            <td>${parseDate(c.time)}</td>
           </tr>`;
         });
         document.getElementById('clicks-body').innerHTML = clicksHtml;
@@ -188,7 +195,7 @@
           visitsHtml += `<tr>
             <td>#${v.id}</td>
             <td>${ip}</td>
-            <td>${new Date(v.time).toLocaleString()}</td>
+            <td>${parseDate(v.time)}</td>
           </tr>`;
         });
         document.getElementById('visits-body').innerHTML = visitsHtml;
@@ -202,7 +209,7 @@
               <td>#${q.id}</td>
               <td>${q.question}</td>
               <td>${status}</td>
-              <td>${new Date(q.time).toLocaleString()}</td>
+              <td>${parseDate(q.time)}</td>
             </tr>`;
           });
         }
