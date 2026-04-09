@@ -1,0 +1,257 @@
+:root {
+  --primary: #0a0e17;
+  --accent: #00f3ff;
+  --accent-secondary: #7000ff;
+  --text-main: #e0e6ed;
+  --text-dim: #94a3b8;
+  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Background Animation */
+#detail-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 50%, #1a2233 0%, #0a0e17 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header Section */
+header {
+  padding: 4rem 0 2rem;
+  text-align: center;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.back-link:hover {
+  transform: translateX(-5px);
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-dim);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Standard Switcher (Tabs) */
+.standard-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 3rem 0;
+  position: sticky;
+  top: 1rem;
+  z-index: 100;
+}
+
+.nav-item {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.nav-item.active {
+  background: var(--accent);
+  color: var(--primary);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+.nav-item:hover:not(.active) {
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Content Area */
+.standard-content {
+  position: relative;
+  min-height: 600px;
+}
+
+.standard-panel {
+  display: none;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.standard-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Panel Layout */
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.panel-header {
+  margin-bottom: 2.5rem;
+}
+
+.panel-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.panel-header .tagline {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Detailed Clauses List */
+.clauses-container {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.clause-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+
+.clause-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.clause-num {
+  font-weight: 800;
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+.clause-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.clause-text {
+  margin-top: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+/* Visuals Column */
+.panel-visuals {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.std-image-wrap {
+  width: 100%;
+  aspect-ratio: 16/10;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+}
+
+.std-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.std-image-wrap:hover img {
+  transform: scale(1.05);
+}
+
+.diagram-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.diagram-card h4 {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--accent);
+}
+
+/* Mermaid Customization */
+.mermaid {
+  background: transparent !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .panel-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .panel-visuals {
+    position: static;
+  }
+  
+  h1 { font-size: 2.5rem; }
+}

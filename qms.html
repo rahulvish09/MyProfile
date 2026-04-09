@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quality Management System (QMS) — Document hierarchy, ISO & API Q1 standards, HIRA, safety concepts, and industry best practices for Oil & Gas manufacturing.">
+  <title>QMS — Quality Management System | Rahul Vishwakarma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="qms.css">
+</head>
+<body>
+  <!-- QMS Canvas Background (Gears & Nodes) -->
+  <canvas id="qms-canvas"></canvas>
+
+  <div class="overlay" id="overlay">
+
+    <!-- Navigation -->
+    <nav class="nav" id="main-nav">
+      <div class="nav-logo">
+        <a href="index.html"><span class="logo-text">Rahul Vishwakarma</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link" id="nav-home">Home</a>
+        <a href="index.html#about" class="nav-link" id="nav-about">About</a>
+        <a href="index.html#projects" class="nav-link" id="nav-projects">Projects</a>
+        <a href="qms.html" class="nav-link active" id="nav-qms" style="color:var(--accent-cyan)">QMS</a>
+        <a href="lab.html" class="nav-link" id="nav-lab" style="color:var(--accent-blue)">The Lab</a>
+      </div>
+      <a href="index.html#contact" class="nav-cta" id="nav-cta-btn">Let's Talk</a>
+    </nav>
+
+    <!-- ══════════════ HERO ══════════════ -->
+    <section class="qms-hero" id="qms-top">
+      <div class="qms-hero-content">
+        <div class="qms-hero-badge">
+          <span>🏭</span>
+          <span>Oil & Gas · Mechanical · Manufacturing</span>
+        </div>
+        <h1>
+          <span class="title-line">Quality Management</span>
+          <span class="title-line gradient-text">System (QMS)</span>
+        </h1>
+        <p class="hero-sub">
+          A comprehensive, industry-level guide to QMS documentation, international standards,
+          safety concepts, and practical implementation for manufacturing excellence.
+        </p>
+        <div class="qms-hero-stats">
+          <div class="qms-stat-chip"><span>📋</span> 4-Level Doc System</div>
+          <div class="qms-stat-chip"><span>🌐</span> 6 Standards</div>
+          <div class="qms-stat-chip"><span>⚙️</span> Industry-Ready</div>
+          <div class="qms-stat-chip"><span>🛡️</span> HIRA & Safety</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sticky TOC -->
+    <div class="qms-toc" id="qms-toc">
+      <div class="qms-toc-inner">
+        <a href="#qms-doc-structure" class="qms-toc-link">📋 Documents</a>
+        <a href="#qms-standards" class="qms-toc-link">🌐 Standards</a>
+        <a href="#qms-concepts" class="qms-toc-link">🛡️ Safety</a>
+        <a href="#qms-industry" class="qms-toc-link">🏭 Industry</a>
+        <a href="#qms-consequences" class="qms-toc-link">⚠️ Consequences</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION 1 — DOCUMENT STRUCTURE
+         ══════════════════════════════════════════════ -->
+    <section class="qms-section" id="qms-doc-structure">
+      <div class="qms-section-header qms-reveal anim-docs">
+        <div class="qms-section-tag"><span class="tag-num">01</span> Document Hierarchy</div>
+        <h2 class="qms-section-title">QMS Document <span class="gradient-text">Structure</span></h2>
+        <p class="qms-section-desc">
+          A world-class QMS relies on a well-defined 4-level documentation pyramid — from strategic policy to daily records.
+        </p>
+        <!-- Floating document animation -->
+        <div class="floating-doc fd-1"></div>
+        <div class="floating-doc fd-2"></div>
+        <div class="floating-doc fd-3"></div>
+      </div>
+
+      <!-- Pyramid Visual -->
+      <div class="doc-pyramid qms-reveal">
+        <div class="pyramid-level" data-level="1">
+          <div class="pyramid-level-tag">Level 1 — Top</div>
+          <div class="pyramid-level-content">
+            <span class="pyramid-level-title">IMS Manual · IMS Policy · Quality Manual</span>
+            <span class="pyramid-level-docs">Strategic direction & management commitment</span>
+          </div>
+        </div>
+        <div class="pyramid-level" data-level="2">
+          <div class="pyramid-level-tag">Level 2 — System</div>
+          <div class="pyramid-level-content">
+            <span class="pyramid-level-title">Management System Procedures (MSP)</span>
+            <span class="pyramid-level-docs">Cross-functional "how" procedures</span>
+          </div>
+        </div>
+        <div class="pyramid-level" data-level="3">
+          <div class="pyramid-level-tag">Level 3 — Ops</div>
+          <div class="pyramid-level-content">
+            <span class="pyramid-level-title">Department Manuals · SOPs · Drawings · Emergency Plans</span>
+            <span class="pyramid-level-docs">Operational procedures & work instructions</span>
+          </div>
+        </div>
+        <div class="pyramid-level" data-level="4">
+          <div class="pyramid-level-tag">Level 4 — Records</div>
+          <div class="pyramid-level-content">
+            <span class="pyramid-level-title">Formats · Logbooks · Compliance Registers</span>
+            <span class="pyramid-level-docs">Evidence — "If it's not recorded, it didn't happen"</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Detail Cards -->
+      <div class="level-details qms-reveal">
+        <div class="level-detail-card" data-level="1">
+          <div class="level-detail-header">
+            <div class="level-badge l1">L1</div>
+            <div class="level-detail-title-group">
+              <h3>Level 1 — Top Level Documents</h3>
+              <p>IMS Manual · IMS Policy · Quality Manual</p>
+            </div>
+            <span class="level-toggle">▼</span>
+          </div>
+          <div class="level-detail-body">
+            <div class="level-detail-inner">
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <h4>Purpose</h4>
+                  <p>Defines the organization's quality <strong>vision, mission, and strategic intent</strong>. Establishes the foundation and communicates top management commitment.</p>
+                </div>
+                <div class="detail-item">
+                  <h4>Who Uses It</h4>
+                  <ul>
+                    <li>Top Management / Directors</li>
+                    <li>Management Representative (MR)</li>
+                    <li>External auditors & certification bodies</li>
+                  </ul>
+                </div>
+                <div class="detail-item">
+                  <h4>Examples</h4>
+                  <ul>
+                    <li><strong>IMS Manual:</strong> Scope, exclusions, process interactions</li>
+                    <li><strong>IMS Policy:</strong> Signed quality, HSE & energy commitments</li>
+                    <li><strong>Quality Manual:</strong> QMS structure per ISO 9001 / API Q1</li>
+                  </ul>
+                </div>
+                <div class="detail-item">
+                  <h4>Audit Importance</h4>
+                  <p>The <strong>first document reviewed</strong> by any auditor. Demonstrates management commitment, policy alignment, and scope definition.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="level-detail-card" data-level="2">
+          <div class="level-detail-header">
+            <div class="level-badge l2">L2</div>
+            <div class="level-detail-title-group">
+              <h3>Level 2 — Management System Procedures</h3>
+              <p>Cross-functional system procedures</p>
+            </div>
+            <span class="level-toggle">▼</span>
+          </div>
+          <div class="level-detail-body">
+            <div class="level-detail-inner">
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <h4>Purpose</h4>
+                  <p>Define <strong>how each standard requirement is implemented</strong> across the organization. Bridge between policy and operations.</p>
+                </div>
+                <div class="detail-item">
+                  <h4>Examples</h4>
+                  <ul>
+                    <li>MSP-01: Document Control</li>
+                    <li>MSP-02: Non-Conforming Product</li>
+                    <li>MSP-03: Internal Audit</li>
+                    <li>MSP-04: Management Review</li>
+                    <li>MSP-05: CAPA</li>
+                    <li>MSP-06: Purchasing</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="level-detail-card" data-level="3">
+          <div class="level-detail-header">
+            <div class="level-badge l3">L3</div>
+            <div class="level-detail-title-group">
+              <h3>Level 3 — Operational Documents</h3>
+              <p>SOPs · Drawings · Emergency Plans</p>
+            </div>
+            <span class="level-toggle">▼</span>
+          </div>
+          <div class="level-detail-body">
+            <div class="level-detail-inner">
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <h4>Purpose</h4>
+                  <p>Step-by-step <strong>work-level instructions</strong> for operators and engineers. This is where "the work actually happens."</p>
+                </div>
+                <div class="detail-item">
+                  <h4>Examples</h4>
+                  <ul>
+                    <li>SOP: Hydrostatic Testing of Steel Pipes</li>
+                    <li>SOP: Welding Procedure Qualification</li>
+                    <li>Engineering drawings, P&IDs</li>
+                    <li>Fire emergency & evacuation plans</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="level-detail-card" data-level="4">
+          <div class="level-detail-header">
+            <div class="level-badge l4">L4</div>
+            <div class="level-detail-title-group">
+              <h3>Level 4 — Records & Formats</h3>
+              <p>Formats · Logbooks · Compliance Registers</p>
+            </div>
+            <span class="level-toggle">▼</span>
+          </div>
+          <div class="level-detail-body">
+            <div class="level-detail-inner">
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <h4>Purpose</h4>
+                  <p>Provides <strong>objective evidence</strong> that activities were performed as planned. "If it's not recorded, it didn't happen."</p>
+                </div>
+                <div class="detail-item">
+                  <h4>Audit Focus</h4>
+                  <p><strong>70–80% of audit time</strong> is spent reviewing records — checking legibility, traceability, retention, and controlled amendments.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="qms-divider"></div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION 2 — STANDARDS (REDESIGNED - COMPACT)
+         ══════════════════════════════════════════════ -->
+    <section class="qms-section" id="qms-standards">
+      <div class="qms-section-header qms-reveal anim-standards">
+        <div class="qms-section-tag"><span class="tag-num">02</span> Standards Integration</div>
+        <h2 class="qms-section-title">QMS <span class="gradient-text">Standards & ISO</span></h2>
+        <p class="qms-section-desc">
+          International standards form the backbone of any QMS. Click "Show Details" on any card to learn more.
+        </p>
+        <div class="spinning-globe"></div>
+      </div>
+
+      <!-- PDCA Cycle -->
+      <div class="qms-reveal">
+        <div class="qms-callout info">
+          <span class="qms-callout-icon">🔄</span>
+          <div><strong>PDCA (Plan-Do-Check-Act)</strong> — The continuous improvement cycle at the core of every ISO standard.</div>
+        </div>
+        <div class="pdca-visual">
+          <div class="pdca-block plan"><h4>📋 PLAN</h4><p>Set objectives, identify risks, plan resources</p></div>
+          <div class="pdca-block do"><h4>🔧 DO</h4><p>Implement processes, execute instructions</p></div>
+          <div class="pdca-block act"><h4>🚀 ACT</h4><p>Correct, improve, update procedures</p></div>
+          <div class="pdca-block check"><h4>📊 CHECK</h4><p>Monitor, audit, measure performance</p></div>
+        </div>
+      </div>
+
+      <!-- Compact Standards Cards -->
+      <div class="standards-grid qms-reveal">
+
+        <!-- API Q1 -->
+        <div class="std-card" data-std="api">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">🛢️</div>
+            <div class="std-card-info">
+              <h3>API Q1 (10th Ed.)</h3>
+              <div class="std-subtitle">Quality Management — Oil & Gas</div>
+              <div class="std-oneliner">QMS specification for petroleum industry manufacturers. Required for API Monogram licensing.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">API Monogram</span>
+            <span class="std-mini-tag ok">Global Market</span>
+            <span class="std-mini-tag info">Risk-Based</span>
+            <span class="std-mini-tag warn">Mandatory for O&G</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <ul>
+                  <li>4. QMS Requirements</li>
+                  <li>5. Management Responsibility</li>
+                  <li>6. Resource Management</li>
+                  <li>7. Product Realization</li>
+                  <li>8. Measurement & Improvement</li>
+                </ul>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Industry Application</div>
+                <p>Manufacturers of pipes, valves, flanges, wellhead equipment, drilling tools, and pressure vessels for oil & gas applications.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key System Elements</div>
+                <p>Risk-based thinking, management review, design control, document control, traceability, non-conformance management, and continual improvement.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">If NOT Implemented</div>
+                <p>Cannot sell to oil & gas majors, no API monogram, product liability exposure, loss of market credibility.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ISO 9001 -->
+        <div class="std-card" data-std="9001">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">✅</div>
+            <div class="std-card-info">
+              <h3>ISO 9001:2015</h3>
+              <div class="std-subtitle">Quality Management Systems</div>
+              <div class="std-oneliner">World's most adopted quality standard. Framework for consistent quality and customer satisfaction.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">Global Standard</span>
+            <span class="std-mini-tag ok">Tender Eligible</span>
+            <span class="std-mini-tag info">PDCA / HLS</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <p>4. Context · 5. Leadership · 6. Planning · 7. Support · 8. Operation · 9. Performance Evaluation · 10. Improvement</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Application</div>
+                <p>Universal — process control, inspection, calibration, supplier management, complaints, and continuous improvement.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">If NOT Implemented</div>
+                <p>Customer rejections, quality inconsistency, loss of tenders, no certification.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ISO 14001 -->
+        <div class="std-card" data-std="14001">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">🌿</div>
+            <div class="std-card-info">
+              <h3>ISO 14001:2015</h3>
+              <div class="std-subtitle">Environmental Management</div>
+              <div class="std-oneliner">Manage environmental responsibilities — reduce waste, prevent pollution, ensure legal compliance.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">Legal Compliance</span>
+            <span class="std-mini-tag ok">Waste Reduction</span>
+            <span class="std-mini-tag warn">Fines if ignored</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <p>Environmental Policy · Aspect & Impact Assessment · Legal Compliance · Operational Control · Emergency Preparedness</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Application</div>
+                <p>Emissions control, effluent treatment, scrap metal management, hazardous chemicals, noise control.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">If NOT Implemented</div>
+                <p>Environmental fines, plant closure orders, community complaints, legal prosecution.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ISO 45001 -->
+        <div class="std-card" data-std="45001">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">🦺</div>
+            <div class="std-card-info">
+              <h3>ISO 45001:2018</h3>
+              <div class="std-subtitle">Occupational Health & Safety</div>
+              <div class="std-oneliner">Prevent work-related injury, ill health, and fatalities through systematic OH&S risk management.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">Zero Harm</span>
+            <span class="std-mini-tag ok">Lower Insurance</span>
+            <span class="std-mini-tag warn">Criminal liability risk</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <p>Hazard Identification · Risk Assessment · Worker Participation · Incident Investigation · Emergency Response</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Application</div>
+                <p>Machine guarding, hot work permits, confined space entry, crane ops, PPE management, near-miss reporting.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">If NOT Implemented</div>
+                <p>Workplace fatalities, factory act violations, criminal liability, worker strikes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ISO 50001 -->
+        <div class="std-card" data-std="50001">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">⚡</div>
+            <div class="std-card-info">
+              <h3>ISO 50001:2018</h3>
+              <div class="std-subtitle">Energy Management</div>
+              <div class="std-oneliner">Systematically reduce energy costs and greenhouse gas emissions through performance management.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">10-30% Savings</span>
+            <span class="std-mini-tag ok">Carbon Reduction</span>
+            <span class="std-mini-tag warn">PAT scheme risk</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <p>Energy Policy · Energy Review · Energy Baseline · EnPIs · Significant Energy Uses</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Application</div>
+                <p>Furnace monitoring, compressor optimization, idle machine reduction, lighting automation, steam efficiency.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">If NOT Implemented</div>
+                <p>High energy bills, PAT scheme penalties, carbon tax liability, ESG non-compliance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ISO 29001 -->
+        <div class="std-card" data-std="29001">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">🔬</div>
+            <div class="std-card-info">
+              <h3>ISO 29001:2020</h3>
+              <div class="std-subtitle">QMS — Petroleum & Natural Gas</div>
+              <div class="std-oneliner">ISO 9001 with supplemental requirements for oil & gas supply chain and product integrity.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">Supply Chain Trust</span>
+            <span class="std-mini-tag ok">Traceability</span>
+            <span class="std-mini-tag info">API Q1 Complement</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <p>ISO 9001 + Supplementals · Product Traceability · Design Review · Supply Chain Quality · Service After Delivery</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Application</div>
+                <p>Raw material traceability, WPQ, NDE reports, heat treatment records, mill test certificates.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">If NOT Implemented</div>
+                <p>Rejected by operators, traceability failures, supply chain audit failures, product recalls.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Q1 (Specialized) -->
+        <div class="std-card api-card" data-std="api-q1">
+          <div class="std-card-summary">
+            <div class="std-icon-wrap">🏭</div>
+            <div class="std-card-info">
+              <h3>API Q1 (10th Edition)</h3>
+              <div class="std-subtitle">Petroleum & Natural Gas Manufacturing</div>
+              <div class="std-oneliner">The highest industry standard for manufacturing excellence and risk-based product realization.</div>
+            </div>
+          </div>
+          <div class="std-mini-tags">
+            <span class="std-mini-tag ok">Monogram Ready</span>
+            <span class="std-mini-tag ok">Risk Focus</span>
+            <span class="std-mini-tag critical">Highest Rigour</span>
+          </div>
+          <button class="std-show-btn"><span class="btn-text">Show Details</span> <span class="arrow">▼</span></button>
+          <div class="std-details">
+            <div class="std-details-inner">
+              <div class="std-detail-field">
+                <div class="std-detail-label">Key Clauses</div>
+                <p>Quality System · Product Realization · Risk Assessment · Measurement & Improvement · Contingency Planning</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Application</div>
+                <p>O&G equipment, drill-pipes, valves, monogrammed products, complex manufacturing chains.</p>
+              </div>
+              <div class="std-detail-field">
+                <div class="std-detail-label">Design & Development</div>
+                <p>Extremely strict requirements for design verification and validation compared to ISO 9001.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /standards-grid -->
+
+      <!-- New CTA for Detailed Insights -->
+      <div class="standards-cta-wrap qms-reveal">
+        <a href="standards-detail.html" class="standards-cta-btn">
+          <div class="cta-inner">
+            <div class="cta-main">
+              <span class="cta-icon">📘</span>
+              <div class="cta-content">
+                <span class="cta-title">Explore Technical PDF Insights</span>
+                <p class="cta-desc">Deep-dive into clause-by-clause requirements, interactive flowcharts, and industrial application cases extracted from the 6 official ISO/API standards.</p>
+              </div>
+            </div>
+            <span class="cta-arrow">→</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Standards Connection Flowchart -->
+      <div class="flowchart-container qms-reveal">
+        <h3 class="flowchart-title">How Standards <span class="gradient-text">Connect</span></h3>
+        <div class="flowchart">
+          <div class="fc-node ims">
+            <span class="fc-node-icon">🏛️</span>
+            <div class="fc-node-text"><h4>IMS (Integrated Management System)</h4><span>Umbrella system combining all standards</span></div>
+          </div>
+          <div class="fc-connector"><div class="fc-line"></div><span class="fc-arrow">▼</span></div>
+
+          <div class="fc-branch">
+            <div class="fc-branch-item">
+              <div class="fc-connector"><div class="fc-line"></div></div>
+              <div class="fc-branch-node"><span class="branch-icon">✅</span>ISO 9001<br>Quality</div>
+            </div>
+            <div class="fc-branch-item">
+              <div class="fc-connector"><div class="fc-line"></div></div>
+              <div class="fc-branch-node"><span class="branch-icon">🌿</span>ISO 14001<br>Environment</div>
+            </div>
+            <div class="fc-branch-item">
+              <div class="fc-connector"><div class="fc-line"></div></div>
+              <div class="fc-branch-node"><span class="branch-icon">🦺</span>ISO 45001<br>Safety</div>
+            </div>
+            <div class="fc-branch-item">
+              <div class="fc-connector"><div class="fc-line"></div></div>
+              <div class="fc-branch-node"><span class="branch-icon">⚡</span>ISO 50001<br>Energy</div>
+            </div>
+          </div>
+
+          <div class="fc-connector"><div class="fc-line"></div><span class="fc-arrow">▼</span></div>
+
+          <div class="fc-node api">
+            <span class="fc-node-icon">🛢️</span>
+            <div class="fc-node-text"><h4>API Q1 + ISO 29001</h4><span>Oil & Gas Sector-Specific Requirements</span></div>
+          </div>
+
+          <div class="fc-connector"><div class="fc-line"></div><span class="fc-arrow">▼</span></div>
+
+          <div class="fc-node iso">
+            <span class="fc-node-icon">🏭</span>
+            <div class="fc-node-text"><h4>Manufacturing Excellence</h4><span>Pipes · Valves · Pressure Vessels · Wellhead Equipment</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="qms-divider"></div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION 3 — SAFETY & QMS CONCEPTS
+         ══════════════════════════════════════════════ -->
+    <section class="qms-section" id="qms-concepts">
+      <div class="qms-section-header qms-reveal anim-safety">
+        <div class="qms-section-tag"><span class="tag-num">03</span> Safety & QMS Concepts</div>
+        <h2 class="qms-section-title">Safety, Risk & <span class="gradient-text">Audit Concepts</span></h2>
+        <p class="qms-section-desc">
+          Practical tools that keep people safe and processes compliant — click each topic to expand.
+        </p>
+        <!-- PPE bouncing animation -->
+        <div class="ppe-items">
+          <span class="ppe-item">🪖</span>
+          <span class="ppe-item">🥽</span>
+          <span class="ppe-item">🧤</span>
+          <span class="ppe-item">🦺</span>
+        </div>
+      </div>
+
+      <div class="concepts-grid qms-reveal">
+        <!-- HIRA -->
+        <div class="concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">⚠️</div>
+            <div class="concept-title-group"><h3>Hazard Identification & Risk Assessment</h3><span class="concept-abbr">HIRA</span></div>
+            <span class="concept-toggle">▼</span>
+          </div>
+          <div class="concept-body">
+            <div class="concept-inner">
+              <h4>What is HIRA?</h4>
+              <p>Systematic process of identifying workplace hazards, assessing risks, and determining control measures.</p>
+              <h4>Steps</h4>
+              <ol class="step-list">
+                <li><strong>Identify Activities:</strong> List work activities (welding, grinding, crane ops).</li>
+                <li><strong>Identify Hazards:</strong> Physical, chemical, biological, ergonomic.</li>
+                <li><strong>Identify Who's at Risk:</strong> Workers, visitors, contractors.</li>
+                <li><strong>Assess Risk:</strong> Severity × Likelihood matrix → Low/Medium/High/Critical.</li>
+                <li><strong>Determine Controls:</strong> Elimination → Substitution → Engineering → Admin → PPE.</li>
+                <li><strong>Document & Review:</strong> Record in HIRA register, review periodically.</li>
+              </ol>
+              <h4>Example: Welding in Pipe Fabrication</h4>
+              <div class="qms-table-wrapper">
+                <table class="qms-table">
+                  <thead><tr><th>Activity</th><th>Hazard</th><th>Risk</th><th>Control</th></tr></thead>
+                  <tbody>
+                    <tr><td>Arc Welding</td><td>UV radiation, fumes, burns</td><td>High</td><td>Screens, extractors, helmet, gloves</td></tr>
+                    <tr><td>Grinding</td><td>Flying particles, noise</td><td>Medium</td><td>Goggles, ear plugs, guard</td></tr>
+                    <tr><td>Crane Lifting</td><td>Falling load, crush</td><td>Critical</td><td>Certified crane, signalman, barricading</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EAI -->
+        <div class="concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🌍</div>
+            <div class="concept-title-group"><h3>Environmental Aspect Impact</h3><span class="concept-abbr">EAI</span></div>
+            <span class="concept-toggle">▼</span>
+          </div>
+          <div class="concept-body">
+            <div class="concept-inner">
+              <h4>What is EAI?</h4>
+              <p>Identifying elements of activities that interact with the environment and assessing their impact significance. Core requirement of ISO 14001.</p>
+              <h4>Example: Steel Pipe Manufacturing</h4>
+              <div class="qms-table-wrapper">
+                <table class="qms-table">
+                  <thead><tr><th>Activity</th><th>Aspect</th><th>Impact</th><th>Control</th></tr></thead>
+                  <tbody>
+                    <tr><td>Welding</td><td>Fume emission</td><td>Air pollution</td><td>Fume extraction, stack monitoring</td></tr>
+                    <tr><td>Pickling</td><td>Acid discharge</td><td>Water contamination</td><td>ETP, pH monitoring</td></tr>
+                    <tr><td>Heat Treatment</td><td>Gas consumption</td><td>Resource depletion</td><td>Energy monitoring, optimization</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Safety Factor -->
+        <div class="concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🔧</div>
+            <div class="concept-title-group"><h3>Safety Factor (FoS)</h3><span class="concept-abbr">Factor of Safety</span></div>
+            <span class="concept-toggle">▼</span>
+          </div>
+          <div class="concept-body">
+            <div class="concept-inner">
+              <p>Ratio of maximum strength to actual load — provides margin for uncertainties in materials, loading, and manufacturing.</p>
+              <div class="formula-box">
+                <div class="formula">FoS = Ultimate Strength / Working Stress</div>
+                <div class="formula-desc">FoS = Maximum Load Capacity / Actual Applied Load</div>
+              </div>
+              <div class="qms-table-wrapper">
+                <table class="qms-table">
+                  <thead><tr><th>Application</th><th>Typical FoS</th><th>Reason</th></tr></thead>
+                  <tbody>
+                    <tr><td>Pressure Vessels</td><td>3.0–4.0</td><td>Catastrophic failure risk</td></tr>
+                    <tr><td>Cranes / Lifting</td><td>4.0–6.0</td><td>Dynamic loads, human safety</td></tr>
+                    <tr><td>Pipes (Oil & Gas)</td><td>2.0–3.5</td><td>High pressure, corrosion</td></tr>
+                    <tr><td>Aircraft</td><td>1.2–1.5</td><td>Weight-critical, extensively tested</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOC -->
+        <div class="concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🔄</div>
+            <div class="concept-title-group"><h3>Management of Change</h3><span class="concept-abbr">MOC</span></div>
+            <span class="concept-toggle">▼</span>
+          </div>
+          <div class="concept-body">
+            <div class="concept-inner">
+              <p>Systematic process to evaluate, approve, and implement changes while managing associated risks.</p>
+              <h4>MOC Process</h4>
+              <ol class="step-list">
+                <li><strong>Initiate:</strong> Document proposed change with justification.</li>
+                <li><strong>Risk Assessment:</strong> Evaluate quality, safety, environment impact.</li>
+                <li><strong>Review & Approve:</strong> Cross-functional team review.</li>
+                <li><strong>Implement:</strong> Controlled rollout, update procedures, train.</li>
+                <li><strong>Verify & Close:</strong> Confirm results without adverse effects.</li>
+              </ol>
+              <div class="qms-callout warning">
+                <span class="qms-callout-icon">⚠️</span>
+                <div>Uncontrolled changes are a top root cause of quality failures and safety incidents. MOC is mandatory in API Q1 and ISO 45001.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Internal Audit -->
+        <div class="concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🔍</div>
+            <div class="concept-title-group"><h3>Internal Audit</h3><span class="concept-abbr">First-Party</span></div>
+            <span class="concept-toggle">▼</span>
+          </div>
+          <div class="concept-body">
+            <div class="concept-inner">
+              <p>Systematic, independent examination to verify QMS conformance and effectiveness. Conducted at least annually covering all departments and clauses.</p>
+              <h4>Process</h4>
+              <ol class="step-list">
+                <li>Annual audit plan covering all processes</li>
+                <li>Select independent, qualified auditors</li>
+                <li>Review procedures, records, and previous findings</li>
+                <li>Opening meeting → Execution → Evidence collection</li>
+                <li>Classify findings: Major NC / Minor NC / Observation</li>
+                <li>Closing meeting → CAPA follow-up → Management Review</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- External Audit -->
+        <div class="concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🏛️</div>
+            <div class="concept-title-group"><h3>External Audit</h3><span class="concept-abbr">Certification & Surveillance</span></div>
+            <span class="concept-toggle">▼</span>
+          </div>
+          <div class="concept-body">
+            <div class="concept-inner">
+              <h4>Certification Audit (Stage 1 & 2)</h4>
+              <p><strong>Stage 1:</strong> Documentation review. <strong>Stage 2:</strong> On-site audit. Certificate valid for 3 years.</p>
+              <h4>Surveillance Audit</h4>
+              <p>Annual check on continued compliance. Covers subset of requirements, focuses on changes and CAPAs.</p>
+              <h4>Customer Audit (Second-Party)</h4>
+              <p>Conducted by customers (ONGC, Saudi Aramco, Shell) to evaluate supplier capability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="qms-divider"></div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION 4 — INDUSTRY
+         ══════════════════════════════════════════════ -->
+    <section class="qms-section" id="qms-industry">
+      <div class="qms-section-header qms-reveal anim-industry">
+        <div class="qms-section-tag"><span class="tag-num">04</span> Industry Application</div>
+        <h2 class="qms-section-title">Practical <span class="gradient-text">Industry Examples</span></h2>
+        <p class="qms-section-desc">
+          How QMS operates daily in a steel pipe manufacturing & fabrication plant.
+        </p>
+        <span class="gear-icon">⚙️</span>
+      </div>
+
+      <div class="industry-grid qms-reveal">
+        <div class="industry-card">
+          <div class="industry-card-icon">📦</div>
+          <h3>Incoming Material Inspection</h3>
+          <p>When raw materials arrive:</p>
+          <ul>
+            <li>MTC verified against purchase order</li>
+            <li>Chemical & mechanical properties cross-checked</li>
+            <li>Material tagged with unique heat number</li>
+            <li>Non-conforming material → NCR raised</li>
+          </ul>
+        </div>
+        <div class="industry-card">
+          <div class="industry-card-icon">⚙️</div>
+          <h3>In-Process Quality Control</h3>
+          <p>During manufacturing:</p>
+          <ul>
+            <li>Welding parameters per WPS</li>
+            <li>NDE — UT, RT, MPI, DPI</li>
+            <li>Heat treatment cycle recorded</li>
+            <li>ITP hold/witness points enforced</li>
+          </ul>
+        </div>
+        <div class="industry-card">
+          <div class="industry-card-icon">✅</div>
+          <h3>Final Inspection & Hydro Test</h3>
+          <p>Before dispatch:</p>
+          <ul>
+            <li>Hydrostatic test at 1.5× design pressure</li>
+            <li>Final dimensional verification</li>
+            <li>Test certificates with full traceability</li>
+            <li>Customer TPI witness if required</li>
+          </ul>
+        </div>
+        <div class="industry-card">
+          <div class="industry-card-icon">🦺</div>
+          <h3>Daily Safety & HSE</h3>
+          <ul>
+            <li>Toolbox talks before every shift</li>
+            <li>Permit-to-Work for hot/confined/height work</li>
+            <li>PPE compliance & near-miss reporting</li>
+            <li>Emergency mock drills quarterly</li>
+          </ul>
+        </div>
+        <div class="industry-card">
+          <div class="industry-card-icon">📁</div>
+          <h3>Document Control</h3>
+          <ul>
+            <li>Master document list maintained</li>
+            <li>Controlled copies with stamps issued</li>
+            <li>Revision history tracked</li>
+            <li>Obsolete copies recalled</li>
+          </ul>
+        </div>
+        <div class="industry-card">
+          <div class="industry-card-icon">👷</div>
+          <h3>Role of Engineers</h3>
+          <ul>
+            <li><strong>QA:</strong> Plans inspections, audits, CAPA</li>
+            <li><strong>QC:</strong> Tests, records, NCR identification</li>
+            <li><strong>Production:</strong> Follows SOPs, reports deviations</li>
+            <li><strong>Safety:</strong> HIRA, training, incident investigation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="qms-divider"></div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION 5 — CONSEQUENCES
+         ══════════════════════════════════════════════ -->
+    <section class="qms-section" id="qms-consequences">
+      <div class="qms-section-header qms-reveal anim-consequences">
+        <div class="qms-section-tag"><span class="tag-num">05</span> Critical Awareness</div>
+        <h2 class="qms-section-title">What Happens If QMS Is <span class="gradient-text">NOT Implemented?</span></h2>
+        <p class="qms-section-desc">
+          The consequences are severe, far-reaching, and can be catastrophic.
+        </p>
+        <span class="warn-pulse">🚨</span>
+      </div>
+
+      <div class="qms-callout danger qms-reveal">
+        <span class="qms-callout-icon">🚨</span>
+        <div><strong>Real-World:</strong> Bhopal Gas Tragedy, Deepwater Horizon, Piper Alpha — all linked to management system failures. Thousands of deaths, billions in losses.</div>
+      </div>
+
+      <div class="consequence-grid qms-reveal">
+        <div class="consequence-card">
+          <div class="consequence-icon">💀</div>
+          <h3>Safety Risks</h3>
+          <p>Uncontrolled hazards → injuries & fatalities. No safety culture means no accident prevention.</p>
+        </div>
+        <div class="consequence-card">
+          <div class="consequence-icon">⚖️</div>
+          <h3>Legal Issues</h3>
+          <p>Violations, fines, plant shutdown, criminal prosecution of directors.</p>
+        </div>
+        <div class="consequence-card">
+          <div class="consequence-icon">🚫</div>
+          <h3>Customer Rejection</h3>
+          <p>Delisted from vendor lists. Products rejected without proper certificates & traceability.</p>
+        </div>
+        <div class="consequence-card">
+          <div class="consequence-icon">💸</div>
+          <h3>Financial Loss</h3>
+          <p>Scrap, rework, warranty claims — failure costs can consume 15-25% of revenue.</p>
+        </div>
+        <div class="consequence-card">
+          <div class="consequence-icon">🏭</div>
+          <h3>Production Failure</h3>
+          <p>Inconsistent output, machine breakdowns, missed deliveries, unpredictable quality.</p>
+        </div>
+        <div class="consequence-card">
+          <div class="consequence-icon">📉</div>
+          <h3>Reputation Damage</h3>
+          <p>One major incident = permanent reputation loss. Lost contracts, talent, and market position.</p>
+        </div>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="qms-reveal" style="margin-top:40px;">
+        <div class="qms-table-wrapper">
+          <table class="qms-table">
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th class="col-good">✅ With QMS</th>
+                <th class="col-bad">❌ Without QMS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Quality</strong></td><td>Consistent, traceable</td><td>Variable, defective</td></tr>
+              <tr><td><strong>Safety</strong></td><td>Proactive, near-zero incidents</td><td>Reactive, accidents</td></tr>
+              <tr><td><strong>Customers</strong></td><td>Certified, repeat orders</td><td>Delisted, rejected</td></tr>
+              <tr><td><strong>Legal</strong></td><td>Compliant, protected</td><td>Fines, prosecution</td></tr>
+              <tr><td><strong>Costs</strong></td><td>Optimized, reduced waste</td><td>High rework, scrap</td></tr>
+              <tr><td><strong>Market</strong></td><td>Global access</td><td>Local only</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+      <p>Designed & Built by <span class="gradient-text">Rahul Vishwakarma</span> — 2026</p>
+      <p class="footer-sub">Engineer × Creator × Builder | QMS Department — Ratnamani Metals & Tubes Ltd.</p>
+    </footer>
+  </div>
+
+  <!-- Back to Top -->
+  <div class="qms-back-top" id="qms-back-top" title="Back to Top">↑</div>
+
+  <!-- Scripts -->
+  <script src="qms-bg.js"></script>
+  <script src="qms.js"></script>
+</body>
+</html>

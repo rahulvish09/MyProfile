@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detailed Standard Insights | QMS Precision</title>
+  <link rel="stylesheet" href="standards-detail.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Mermaid for Diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#00f3ff',
+        primaryTextColor: '#fff',
+        primaryBorderColor: '#00f3ff',
+        lineColor: '#7000ff',
+        secondaryColor: '#1a2233',
+        tertiaryColor: '#0a0e17'
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="detail-bg"></div>
+
+  <div class="container">
+    <header>
+      <a href="qms.html" class="back-link">← Back to QMS Overview</a>
+      <h1>Technical <span style="color: var(--accent);">Deep-Dive</span></h1>
+      <p class="subtitle">Detailed insights and clause-by-clause requirements extracted from official ISO and API Standards documentation.</p>
+    </header>
+
+    <nav class="standard-nav">
+      <div class="nav-item active" data-std="9001">ISO 9001</div>
+      <div class="nav-item" data-std="14001">ISO 14001</div>
+      <div class="nav-item" data-std="45001">ISO 45001</div>
+      <div class="nav-item" data-std="50001">ISO 50001</div>
+      <div class="nav-item" data-std="29001">ISO 29001</div>
+      <div class="nav-item" data-std="api-q1">API Q1</div>
+    </nav>
+
+    <main class="standard-content">
+      
+      <!-- ISO 9001 Panel -->
+      <section class="standard-panel active" id="std-9001">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <div class="panel-header">
+              <span class="tagline">Core Quality Management</span>
+              <h2>ISO 9001:2015</h2>
+              <p>The foundation of all modern quality management systems, focusing on the process approach and customer satisfaction.</p>
+            </div>
+            
+            <div class="clauses-container">
+              <div class="clause-card">
+                <span class="clause-num">4.0</span> <span class="clause-title">Context of the Organization</span>
+                <p class="clause-text">Determining external/internal issues and stakeholder requirements that impact the QMS.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">5.0</span> <span class="clause-title">Leadership & Commitment</span>
+                <p class="clause-text">Top management must demonstrate accountability and maintain a customer-focused policy.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">6.0</span> <span class="clause-title">Planning</span>
+                <p class="clause-text">Addressing risks and opportunities; setting measurable quality objectives.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">8.0</span> <span class="clause-title">Operation</span>
+                <p class="clause-text">The "Do" section — controlling processes, product requirements, and design/development.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">9.0</span> <span class="clause-title">Performance Evaluation</span>
+                <p class="clause-text">Monitoring, measurement, internal audits, and management review.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-visuals">
+            <div class="std-image-wrap">
+              <img src="assets/images/iso9001.png" alt="ISO 9001 Context">
+            </div>
+            <div class="diagram-card">
+              <h4>9001 Value Chain</h4>
+              <div class="mermaid">
+                graph TD
+                A[Customer Req] --> B(Process Planning)
+                B --> C{Execution}
+                C --> D[Quality Records]
+                D --> E(Internal Audit)
+                E --> F[Customer Satisfaction]
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISO 14001 Panel -->
+      <section class="standard-panel" id="std-14001">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <div class="panel-header">
+              <span class="tagline">Environmental Stewardship</span>
+              <h2>ISO 14001:2015</h2>
+              <p>Enhancing environmental performance through efficient resource use and waste reduction.</p>
+            </div>
+            
+            <div class="clauses-container">
+              <div class="clause-card">
+                <span class="clause-num">4.1</span> <span class="clause-title">Climate Action (Amd 1)</span>
+                <p class="clause-text">Mandatory determination of whether climate change is a relevant internal or external issue.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">6.1.2</span> <span class="clause-title">Environmental Aspects</span>
+                <p class="clause-text">Identifying activities that interact with the environment (air, water, land) and their impacts.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">8.2</span> <span class="clause-title">Emergency Preparedness</span>
+                <p class="clause-text">Establishing processes to respond to environmental accidents and emergency situations.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-visuals">
+            <div class="std-image-wrap">
+              <img src="assets/images/iso14001.png" alt="ISO 14001 Environment">
+            </div>
+            <div class="diagram-card">
+              <h4>Impact Cycle</h4>
+              <div class="mermaid">
+                graph LR
+                A[Activity] --> B(Aspect)
+                B --> C((Impact))
+                C --> D{Operational Control}
+                D --> E[Monitoring]
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISO 45001 Panel -->
+      <section class="standard-panel" id="std-45001">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <div class="panel-header">
+              <span class="tagline">Safety & Health</span>
+              <h2>ISO 45001:2018</h2>
+              <p>Global standard for occupational health and safety (OH&S), aimed at reducing workplace injuries and illnesses.</p>
+            </div>
+            
+            <div class="clauses-container">
+              <div class="clause-card">
+                <span class="clause-num">5.4</span> <span class="clause-title">Worker Participation</span>
+                <p class="clause-text">Consultation with non-managerial workers for hazard identification and policy development.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">6.1.2</span> <span class="clause-title">Hazard Identification</span>
+                <p class="clause-text">Proactive identification of OH&S hazards arising from routine and non-routine activities.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">8.1.2</span> <span class="clause-title">Hierarchy of Controls</span>
+                <p class="clause-text">Elimination → Substitution → Engineering → Administrative → PPE.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-visuals">
+            <div class="std-image-wrap">
+              <img src="assets/images/iso45001.png" alt="ISO 45001 Safety">
+            </div>
+            <div class="diagram-card">
+              <h4>Safety Hierarchy</h4>
+              <div class="mermaid">
+                graph BT
+                A[PPE] --- B[Admin Controls]
+                B --- C[Engineering]
+                C --- D[Substitution]
+                D --- E[Elimination]
+                style E fill:#00f3ff,stroke:#fff,stroke-width:2px,color:#0a0e17
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISO 50001 Panel -->
+      <section class="standard-panel" id="std-50001">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <div class="panel-header">
+              <span class="tagline">Energy Performance</span>
+              <h2>ISO 50001:2018</h2>
+              <p>Systematic approach to achieving continual improvement of energy performance, including efficiency and consumption.</p>
+            </div>
+            
+            <div class="clauses-container">
+              <div class="clause-card">
+                <span class="clause-num">6.3</span> <span class="clause-title">Energy Review</span>
+                <p class="clause-text">Analyzing energy use/consumption, identifying SEUs (Significant Energy Uses) and improvement opportunities.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">6.4</span> <span class="clause-title">EnPIs</span>
+                <p class="clause-text">Energy Performance Indicators used to measure results compared to the energy baseline (EnB).</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">8.2</span> <span class="clause-title">Design & Procurement</span>
+                <p class="clause-text">Considering energy performance in the design of new, modified, or renovated facilities and equipment.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-visuals">
+            <div class="std-image-wrap">
+              <img src="assets/images/iso50001.png" alt="ISO 50001 Energy">
+            </div>
+            <div class="diagram-card">
+              <h4>Energy Flow</h4>
+              <div class="mermaid">
+                graph LR
+                A[Energy Source] --> B(Energy Use)
+                B --> C{Baseline EnB}
+                C --> D(Reduction Plan)
+                D --> E[EnPI Performance]
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISO 29001 Panel -->
+      <section class="standard-panel" id="std-29001">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <div class="panel-header">
+              <span class="tagline">Petrochemical Spec</span>
+              <h2>ISO 29001:2020</h2>
+              <p>Specific quality management requirements for product and service supply organizations for the petroleum and natural gas industries.</p>
+            </div>
+            
+            <div class="clauses-container">
+              <div class="clause-card">
+                <span class="clause-num">General</span> <span class="clause-title">Supplemental Requirements</span>
+                <p class="clause-text">Enhancements to ISO 9001 to manage supply chain risks specific to the Oil & Gas sector.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">3.1</span> <span class="clause-title">QSL (Quality Specification Level)</span>
+                <p class="clause-text">Defines the extent of control activities (testing, inspection, verification) based on operational risk.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">8.5.2</span> <span class="clause-title">Enhanced Traceability</span>
+                <p class="clause-text">Strict requirements for maintaining identification and status throughout the production lifecycle.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-visuals">
+            <div class="std-image-wrap">
+              <img src="assets/images/iso29001.png" alt="ISO 29001 O&G">
+            </div>
+            <div class="diagram-card">
+              <h4>Traceability Chain</h4>
+              <div class="mermaid">
+                graph LR
+                A[Raw Material] --> B(Heat Treatment)
+                B --> C(NDE Testing)
+                C --> D(Final Machining)
+                D --> E[Certification]
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- API Q1 Panel -->
+      <section class="standard-panel" id="std-api-q1">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <div class="panel-header">
+              <span class="tagline">Oil & Gas Excellence</span>
+              <h2>API Q1 (10th Edition)</h2>
+              <p>The industry benchmark for organizations providing products to the petroleum and natural gas industry. Released September 2023.</p>
+            </div>
+            
+            <div class="clauses-container">
+              <div class="clause-card">
+                <span class="clause-num">5.1.1</span> <span class="clause-title">Contingency Planning</span>
+                <p class="clause-text">Planning for potential disruptions (utility loss, raw material shortages) to ensure production continuity.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">5.4</span> <span class="clause-title">Design and Development</span>
+                <p class="clause-text">Rigorous controls for design verification/validation, including documentation of design changes.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">5.6</span> <span class="clause-title">Purchasing Control</span>
+                <p class="clause-text">Supplier evaluation based on the criticality of products/services to the final product integrity.</p>
+              </div>
+              <div class="clause-card">
+                <span class="clause-num">6.2.2</span> <span class="clause-title">Internal Audit Rigour</span>
+                <p class="clause-text">Audits must cover all QMS elements and specific technical requirements of the monogram program.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-visuals">
+            <div class="std-image-wrap">
+              <img src="assets/images/apiq1.png" alt="API Q1 Manufacturing">
+            </div>
+            <div class="diagram-card">
+              <h4>API Risk Focus</h4>
+              <div class="mermaid">
+                graph TD
+                A[Operational Risk] --> B(Risk Assessment)
+                B --> C{Criticality Level}
+                C --> D(Control Plan)
+                D --> E[Monogram Licensing]
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer style="margin: 5rem 0 2rem; text-align: center; color: var(--text-dim); font-size: 0.9rem;">
+    <p>&copy; 2026 Quality Management Systems Technical Repository. All rights reserved.</p>
+  </footer>
+
+  <script src="standards-detail.js"></script>
+</body>
+</html>
