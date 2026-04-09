@@ -1481,3 +1481,82 @@
     font-size: 0.95rem;
   }
 }
+@media (max-width: 768px) {
+  /* Reduce Hero Spacing */
+  .qms-hero {
+    min-height: auto;
+    padding: 100px 20px 40px;
+  }
+
+  /* Reduce Section Spacing */
+  .qms-section {
+    padding: 40px 20px;
+  }
+
+  .qms-section-header {
+    margin-bottom: 24px;
+  }
+
+  .qms-section-title {
+    font-size: 1.8rem;
+  }
+
+  /* Pyramid Adjustments */
+  .pyramid-level[data-level="1"],
+  .pyramid-level[data-level="2"],
+  .pyramid-level[data-level="3"] {
+    width: 100%; /* Full width for mobile readability */
+  }
+
+  .pyramid-level-tag {
+    padding: 12px;
+    min-width: 90px;
+    font-size: 0.6rem;
+  }
+
+  .pyramid-level-content {
+    padding: 12px 16px;
+  }
+
+  /* Accordion Adjustments */
+  .level-detail-header {
+    padding: 16px 20px;
+  }
+
+  .level-detail-inner .detail-grid {
+    grid-template-columns: 1fr; /* Stack columns */
+  }
+
+  /* Sticky TOC handling */
+  .qms-toc {
+    top: 60px; /* Adjust for smaller header */
+    padding: 10px 15px;
+  }
+
+  .qms-toc-link {
+    padding: 6px 14px;
+    font-size: 0.72rem;
+  }
+
+  /* Flowchart stacking */
+  .fc-node {
+    min-width: 100%;
+  }
+
+  .fc-branch {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .fc-branch::before { display: none; }
+
+  .fc-branch-item {
+    max-width: 100%;
+  }
+
+  /* PDCA stacking */
+  .pdca-visual {
+    grid-template-columns: 1fr;
+  }
+}

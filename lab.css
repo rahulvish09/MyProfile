@@ -189,3 +189,41 @@ ul.cheatsheet {
 ul.cheatsheet li {
   margin-bottom: 8px;
 }
+@media (max-width: 768px) {
+  .lab-header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .lab-title {
+    font-size: 1.4rem;
+  }
+
+  .hud-container {
+    flex-direction: column;
+    padding: 15px;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .hud-left, .hud-right {
+    flex: none;
+    width: 100%;
+  }
+
+  .camera-feed-container, #gesture-3d-canvas {
+    height: 300px; /* Fixed height for mobile stacking */
+    min-height: 300px;
+  }
+
+  .btn-jarvis {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .system-text {
+    font-size: 0.8rem;
+  }
+}

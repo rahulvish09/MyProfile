@@ -15,6 +15,34 @@
     }
   }, { passive: true });
 
+  // ─── Mobile Nav Toggle (Hamburger) ───
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-menu');
+  
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function() {
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      // Prevent scrolling when menu is open
+      if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when clicking a link
+    var mobileLinks = navMenu.querySelectorAll('.nav-link');
+    mobileLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+
   // ─── Active nav link on scroll ───
   var sections = document.querySelectorAll('section[id]');
   var navLinks = document.querySelectorAll('.nav-link');
